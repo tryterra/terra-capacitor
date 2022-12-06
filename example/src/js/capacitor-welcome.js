@@ -50,7 +50,7 @@ window.customElements.define(
           // Terra.activateSensor().then(r => console.log('activateSensor', r));
           // Terra.readGlucoseData().then(r => console.log('readGlucoseData', r));
         })
-        .catch(e => console.log('fucks', e));
+        .catch(e => console.log('error', e));
       SplashScreen.hide();
 
       const root = this.attachShadow({ mode: 'open' });
