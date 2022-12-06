@@ -11,13 +11,13 @@ window.customElements.define(
       Terra.echo({ value: "Echo function test" });
       const connection = Connections.APPLE_HEALTH
       // terra functions example
-      Terra.initTerra({ devId: 'jaafar', referenceId: 'reference_id_samsung' })
+      Terra.initTerra({ devId: 'jaafar', referenceId: 'reference_id_apple' })
         .then(res => {
           console.log('initTerra', res);
           Terra.initConnection({
             connection: connection,
             token:
-              '75150d55fe9898d00715aeafb556445e57b7fa852aa61d6a5da219533fe98c77',
+              'ce487146ea7f07bf16e61f2d4415f03acfa014815c2e2ce0ad11342c48e42e12',
             schedulerOn: false,
             customPermissions: [],
             startIntent: "something",
@@ -48,8 +48,8 @@ window.customElements.define(
           Terra.getAthlete({
             connection: connection,
           }).then(r => console.log('getAthlete', r));
-          Terra.activateSensor().then(r => console.log('activateSensor', r));
-          Terra.readGlucoseData().then(r => console.log('readGlucoseData', r));
+          // Terra.activateSensor().then(r => console.log('activateSensor', r));
+          // Terra.readGlucoseData().then(r => console.log('readGlucoseData', r));
         })
         .catch(e => console.log('fucks', e));
       SplashScreen.hide();
