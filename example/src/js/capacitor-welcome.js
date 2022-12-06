@@ -8,19 +8,18 @@ window.customElements.define(
     constructor() {
       super();
 
-      Terra.echo({ value: "Echo function test" });
-      const connection = Connections.APPLE_HEALTH
+      Terra.echo({ value: 'Echo function test' });
+      const connection = Connections.APPLE_HEALTH;
       // terra functions example
-      Terra.initTerra({ devId: 'jaafar', referenceId: 'reference_id_apple' })
+      Terra.initTerra({ devId: 'devid', referenceId: 'referenceid' })
         .then(res => {
           console.log('initTerra', res);
           Terra.initConnection({
             connection: connection,
-            token:
-              'ce487146ea7f07bf16e61f2d4415f03acfa014815c2e2ce0ad11342c48e42e12',
+            token: 'token',
             schedulerOn: false,
             customPermissions: [],
-            startIntent: "something",
+            startIntent: 'someIntent',
           });
         })
         .then(a => {
