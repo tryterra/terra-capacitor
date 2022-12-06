@@ -1,5 +1,6 @@
-import { SplashScreen } from '@capacitor/splash-screen';
 import { Camera } from '@capacitor/camera';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { Connections, Terra } from 'terra-capacitor';
 
 window.customElements.define(
   'capacitor-welcome',
@@ -7,6 +8,50 @@ window.customElements.define(
     constructor() {
       super();
 
+      Terra.echo({ value: "Echo function test" });
+      const connection = Connections.APPLE_HEALTH
+      // terra functions example
+      Terra.initTerra({ devId: 'jaafar', referenceId: 'reference_id_samsung' })
+        .then(res => {
+          console.log('initTerra', res);
+          Terra.initConnection({
+            connection: connection,
+            token:
+              '75150d55fe9898d00715aeafb556445e57b7fa852aa61d6a5da219533fe98c77',
+            schedulerOn: false,
+            customPermissions: [],
+            startIntent: "something",
+          });
+        })
+        .then(a => {
+          console.log('initConnection', a);
+          Terra.getActivity({
+            connection: connection,
+            startDate: new Date(),
+          }).then(r => console.log('getActivity', r));
+          Terra.getBody({
+            connection: connection,
+            startDate: new Date(),
+          }).then(r => console.log('getBody', r));
+          Terra.getDaily({
+            connection: connection,
+            startDate: new Date(),
+          }).then(r => console.log('getDaily', r));
+          Terra.getNutrition({
+            connection: connection,
+            startDate: new Date(),
+          }).then(r => console.log('getNutrition', r));
+          Terra.getSleep({
+            connection: connection,
+            startDate: new Date(),
+          }).then(r => console.log('getSleep', r));
+          Terra.getAthlete({
+            connection: connection,
+          }).then(r => console.log('getAthlete', r));
+          Terra.activateSensor().then(r => console.log('activateSensor', r));
+          Terra.readGlucoseData().then(r => console.log('readGlucoseData', r));
+        })
+        .catch(e => console.log('fucks', e));
       SplashScreen.hide();
 
       const root = this.attachShadow({ mode: 'open' });
@@ -64,7 +109,7 @@ window.customElements.define(
           Capacitor makes it easy to build powerful apps for the app stores, mobile web (Progressive Web Apps), and desktop, all
           with a single code base.
         </p>
-        <h2>Getting Started</h2>
+        <h2>Getting Started 2</h2>
         <p>
           You'll probably need a UI framework to build a full-featured app. Might we recommend
           <a target="_blank" href="http://ionicframework.com/">Ionic</a>?
@@ -92,24 +137,26 @@ window.customElements.define(
     connectedCallback() {
       const self = this;
 
-      self.shadowRoot.querySelector('#take-photo').addEventListener('click', async function (e) {
-        try {
-          const photo = await Camera.getPhoto({
-            resultType: 'uri',
-          });
+      self.shadowRoot
+        .querySelector('#take-photo')
+        .addEventListener('click', async function (e) {
+          try {
+            const photo = await Camera.getPhoto({
+              resultType: 'uri',
+            });
 
-          const image = self.shadowRoot.querySelector('#image');
-          if (!image) {
-            return;
+            const image = self.shadowRoot.querySelector('#image');
+            if (!image) {
+              return;
+            }
+
+            image.src = photo.webPath;
+          } catch (e) {
+            console.warn('User cancelled', e);
           }
-
-          image.src = photo.webPath;
-        } catch (e) {
-          console.warn('User cancelled', e);
-        }
-      });
+        });
     }
-  }
+  },
 );
 
 window.customElements.define(
@@ -138,5 +185,5 @@ window.customElements.define(
     <slot></slot>
     `;
     }
-  }
+  },
 );

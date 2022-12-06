@@ -1,18 +1,274 @@
 import Foundation
 import Capacitor
-
+import TerraiOS
 /**
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(TerraPlugin)
 public class TerraPlugin: CAPPlugin {
-    private let implementation = Terra()
+    private let implementation = TerraCapacitor()
 
     @objc func echo(_ call: CAPPluginCall) {
         let value = call.getString("value") ?? ""
         call.resolve([
             "value": implementation.echo(value)
         ])
+    }
+    
+    //  require init on main
+    @objc
+    static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
+
+    // terra instance managed
+    private var terra: Terra?
+    
+    // connection type translate
+    private func connectionParse(connection: String) -> Connections? {
+        switch connection {
+            case "APPLE_HEALTH":
+                return Connections.APPLE_HEALTH
+            case "FREESTYLE_LIBRE":
+                return Connections.FREESTYLE_LIBRE
+            default:
+                print("Passed invalid connection")
+        }
+      return nil
+    }
+
+    private func customPermissionParse(cPermission: String) -> CustomPermissions? {
+        switch cPermission {
+            case "WORKOUT_TYPES":
+                return CustomPermissions.WORKOUT_TYPE;
+            case "ACTIVITY_SUMMARY":
+                return CustomPermissions.ACTIVITY_SUMMARY;
+            case "LOCATION":
+                return CustomPermissions.LOCATION;
+            case "CALORIES":
+                return CustomPermissions.CALORIES;
+            case "STEPS":
+                return CustomPermissions.STEPS;
+            case "HEART_RATE":
+                return CustomPermissions.HEART_RATE;
+            case "HEART_RATE_VARIABILITY":
+                return CustomPermissions.HEART_RATE_VARIABILITY;
+            case "VO2MAX":
+                return CustomPermissions.VO2MAX;
+            case "HEIGHT":
+                return CustomPermissions.HEIGHT;
+            case "ACTIVE_DURATIONS":
+                return CustomPermissions.ACTIVE_DURATIONS;
+            case "WEIGHT":
+                return CustomPermissions.WEIGHT;
+            case "FLIGHTS_CLIMBED":
+                return CustomPermissions.FLIGHTS_CLIMBED;
+            case "BMI":
+                return CustomPermissions.BMI;
+            case "BODY_FAT":
+                return CustomPermissions.BODY_FAT;
+            case "EXERCISE_DISTANCE":
+                return CustomPermissions.EXERCISE_DISTANCE;
+            case "GENDER":
+                return CustomPermissions.GENDER;
+            case "DATE_OF_BIRTH":
+                return CustomPermissions.DATE_OF_BIRTH;
+            case "BASAL_ENERGY_BURNED":
+                return CustomPermissions.BASAL_ENERGY_BURNED;
+            case "SWIMMING_SUMMARY":
+                return CustomPermissions.SWIMMING_SUMMARY;
+            case "RESTING_HEART_RATE":
+                return CustomPermissions.RESTING_HEART_RATE;
+            case "BLOOD_PRESSURE":
+                return CustomPermissions.BLOOD_PRESSURE;
+            case "BLOOD_GLUCOSE":
+                return CustomPermissions.BLOOD_GLUCOSE;
+            case "BODY_TEMPERATURE":
+                return CustomPermissions.BODY_TEMPERATURE;
+            case "MINDFULNESS":
+                return CustomPermissions.MINDFULNESS;
+            case "LEAN_BODY_MASS":
+                return CustomPermissions.LEAN_BODY_MASS;
+            case "OXYGEN_SATURATION":
+                return CustomPermissions.OXYGEN_SATURATION;
+            case "SLEEP_ANALYSIS":
+                return CustomPermissions.SLEEP_ANALYSIS;
+            case "RESPIRATORY_RATE":
+                return CustomPermissions.RESPIRATORY_RATE;
+            case "NUTRITION_SODIUM":
+                return CustomPermissions.NUTRITION_SODIUM;
+            case "NUTRITION_PROTEIN":
+                return CustomPermissions.NUTRITION_PROTEIN;
+            case "NUTRITION_CARBOHYDRATES":
+                return CustomPermissions.NUTRITION_CARBOHYDRATES;
+            case "NUTRITION_FIBRE":
+                return CustomPermissions.NUTRITION_FIBRE;
+            case "NUTRITION_FAT_TOTAL":
+                return CustomPermissions.NUTRITION_FAT_TOTAL;
+            case "NUTRITION_SUGAR":
+                return CustomPermissions.NUTRITION_SUGAR;
+            case "NUTRITION_VITAMIN_C":
+                return CustomPermissions.NUTRITION_VITAMIN_C;
+            case "NUTRITION_VITAMIN_A":
+                return CustomPermissions.NUTRITION_VITAMIN_A;
+            case "NUTRITION_CALORIES":
+                return CustomPermissions.NUTRITION_CALORIES;
+            case "NUTRITION_WATER":
+                return CustomPermissions.NUTRITION_WATER;
+            case "NUTRITION_CHOLESTEROL":
+                return CustomPermissions.NUTRITION_CHOLESTEROL;
+            default:
+                return nil
+        }
+        return nil
+    }
+    
+    private func customPermissionsSet(customPermissions: [String]) -> Set<CustomPermissions> {
+        var out: Set<CustomPermissions> = Set([])
+
+        for permission in customPermissions {
+            out.insert(customPermissionParse(cPermission: permission)!)
+        }
+
+        return out
+    }
+
+    // initialize
+    @objc
+    func initTerra(_ call: CAPPluginCall){
+        terra = Terra(
+            devId: call.getString("devId") ?? "",
+            referenceId: call.getString("referenceId") ?? nil
+        ){
+            success in call.resolve(["success": success])
+        }
+        // call.resolve(true)
+    }
+    
+    @objc
+    func initConnection(_ call: CAPPluginCall){
+        let connection = call.getString("connection") ?? ""
+        let token = call.getString("token") ?? ""
+        let schedulerOn = call.getBool("schedulerOn") ?? false
+        let customPermissions = (call.getArray("customPermissions") ?? []) as! [String]
+        if let connection = connectionParse(connection: connection){
+            terra?.initConnection(type: connection, token: token, customReadTypes: customPermissionsSet(customPermissions: customPermissions), schedulerOn: schedulerOn){
+                success in call.resolve(["success": success])
+            }
+        }
+        else {
+            call.resolve(["success": false])
+        }
+    }
+
+    @objc
+    func getUserId(_ call: CAPPluginCall){
+        if let connection = connectionParse(connection: call.getString("connection") ?? ""){
+            call.resolve(["user_id": terra?.getUserId(type: connection) ?? ""])
+        }
+    }
+    
+    // getters
+    @objc
+    func getBody(_ call: CAPPluginCall){
+        let connection = call.getString("connection") ?? ""
+        let startDate = call.getDate("startDate")!
+        let endDate = call.getDate("endDate") ?? nil
+        if let connection = connectionParse(connection: connection){
+            if endDate != nil {
+                terra?.getBody(type: connection, startDate: startDate, endDate: endDate!){(success) in call.resolve(["success": success])}
+            } else {
+                terra?.getBody(type: connection, startDate: startDate){(success) in call.resolve(["success": success])}
+            }
+        }
+        else{
+            call.resolve(["success": false])
+        }
+    }
+    @objc
+    func getActivity(_ call: CAPPluginCall){
+        let connection = call.getString("connection") ?? ""
+        let startDate = call.getDate("startDate")!
+        let endDate = call.getDate("endDate") ?? nil
+        if let connection = connectionParse(connection: connection){
+            if endDate != nil {
+                terra?.getActivity(type: connection, startDate: startDate, endDate: endDate!){(success) in call.resolve(["success": success])}
+            } else {
+                terra?.getActivity(type: connection, startDate: startDate){(success) in call.resolve(["success": success])}
+            }
+        }
+        else{
+            call.resolve(["success": false])
+        }
+    }
+    @objc
+    func getAthlete(_ call: CAPPluginCall){
+        let connection = call.getString("connection") ?? ""
+        if let connection = connectionParse(connection: connection){
+            terra?.getAthlete(type: connection){(success) in call.resolve(["success": success])}
+        }
+        else{
+            call.resolve(["success": false])
+        }
+    }
+    @objc
+    func getDaily(_ call: CAPPluginCall){
+        let connection = call.getString("connection") ?? ""
+        let startDate = call.getDate("startDate")!
+        let endDate = call.getDate("endDate") ?? nil
+        if let connection = connectionParse(connection: connection){
+            if endDate != nil {
+                terra?.getDaily(type: connection, startDate: startDate, endDate: endDate!){(success) in call.resolve(["success": success])}
+            } else {
+                terra?.getDaily(type: connection, startDate: startDate){(success) in call.resolve(["success": success])}
+            }
+        }
+        else{
+            call.resolve(["success": false])
+        }
+    }
+    @objc
+    func getSleep(_ call: CAPPluginCall){
+        let connection = call.getString("connection") ?? ""
+        let startDate = call.getDate("startDate")!
+        let endDate = call.getDate("endDate") ?? nil
+        if let connection = connectionParse(connection: connection){
+            if endDate != nil {
+                terra?.getSleep(type: connection, startDate: startDate, endDate: endDate!){(success) in call.resolve(["success": success])}
+            } else {
+                terra?.getSleep(type: connection, startDate: startDate){(success) in call.resolve(["success": success])}
+            }
+        }
+        else{
+            call.resolve(["success": false])
+        }
+    }
+    
+    // Freestyle glucose init
+    @objc
+    func readGlucoseData(_ call: CAPPluginCall){
+        terra?.readGlucoseData{(details) in
+            do {
+                let jsonData = try JSONEncoder().encode(details)
+                call.resolve(["data": String(data: jsonData, encoding: .utf8) ?? ""])
+            }
+            catch {
+                print(error) //Should never execute
+            }
+        }
+    }
+
+    @objc
+    func activateSensor(_ call: CAPPluginCall){
+        terra?.activateSensor{(details) in
+            do {
+                let jsonData = try JSONEncoder().encode(details)
+                call.resolve(["data": String(data: jsonData, encoding: .utf8) ?? "", "success": true])
+            }
+            catch {
+                print(error) //Should never execute
+            }
+        }
     }
 }

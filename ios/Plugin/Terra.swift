@@ -1,8 +1,8 @@
 import Foundation
 
-@objc public class Terra: NSObject {
+@objc public class TerraCapacitor: NSObject {
     @objc public func echo(_ value: String) -> String {
-        print(value)
+        print("Called inside iOS: \(value)")
         return value
     }
 }
