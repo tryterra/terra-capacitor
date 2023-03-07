@@ -53,6 +53,15 @@ export class TerraWeb extends WebPlugin implements TerraPlugin {
   }): Promise<any> {
     return Promise.reject('Web Plugin Not implemented');
   }
+
+  async getMenstruation(_options: {
+    connection: Connections;
+    startDate: Date;
+    endDate: Date;
+  }): Promise<any> {
+    return Promise.reject('Web Plugin Not implemented');
+  }
+
   async getSleep(_options: {
     connection: Connections;
     startDate: Date;

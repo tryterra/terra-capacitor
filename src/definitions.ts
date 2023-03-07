@@ -1,6 +1,6 @@
 export interface TerraPlugin {
   echo(options: { value: string }): Promise<{ value: string }>;
-  initTerra(options: { devId: string; referenceId: string }): Promise<any>;
+  initTerra(options: { devId: string; referenceId: string | null }): Promise<SuccessMessage>;
   initConnection(options: {
     connection: Connections;
     token: string;
@@ -8,40 +8,54 @@ export interface TerraPlugin {
     customPermissions: CustomPermissions[];
     startIntent: string | null;
   }): Promise<any>;
-  getUserId(options: { connection: Connections }): Promise<any>;
+  getUserId(options: { connection: Connections }): Promise<GetUserId>;
 
   getBody(options: {
     connection: Connections;
     startDate: Date;
     endDate: Date;
-  }): Promise<any>;
+    toWebhook: boolean;
+  }): Promise<DataMessage>;
 
   getActivity(options: {
     connection: Connections;
     startDate: Date;
     endDate: Date;
-  }): Promise<any>;
+    toWebhook: boolean;
+  }): Promise<DataMessage>;
   getDaily(options: {
     connection: Connections;
     startDate: Date;
     endDate: Date;
-  }): Promise<any>;
+    toWebhook: boolean;
+  }): Promise<DataMessage>;
 
   getNutrition(options: {
     connection: Connections;
     startDate: Date;
     endDate: Date;
-  }): Promise<any>;
+    toWebhook: boolean;
+  }): Promise<DataMessage>;
+
+  getMenstruation(options: {
+    connection: Connections;
+    startDate: Date;
+    endDate: Date;
+    toWebhook: boolean;
+  }): Promise<DataMessage>;
+
 
   getSleep(options: {
     connection: Connections;
     startDate: Date;
     endDate: Date;
-  }): Promise<any>;
-  getAthlete(options: { connection: Connections }): Promise<any>;
-  activateSensor(): Promise<any>;
-  setUpBackgroundDelivery(): Promise<any>;
-  readGlucoseData(): Promise<any>;
+    toWebhook: boolean;
+  }): Promise<DataMessage>;
+
+  getAthlete(options: { connection: Connections; toWebhook: boolean;}): Promise<DataMessage>;
+
+  activateSensor(): Promise<DataMessage>;
+  readGlucoseData(): Promise<DataMessage>;
 }
 
 export enum CustomPermissions {
@@ -100,3 +114,19 @@ export enum Connections {
   'GOOGLE' = 'GOOGLE',
   'SAMSUNG' = 'SAMSUNG',
 }
+
+export type GetUserId = {
+  success: boolean;
+  userId: string | null;
+};
+
+export type SuccessMessage = {
+  success: boolean;
+  error: string | null;
+};
+
+export type DataMessage = {
+  success: boolean;
+  data: Object;
+  error: string | null;
+};

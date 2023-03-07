@@ -7,6 +7,7 @@ Pods
 Podfile.lock
 Build
 xcuserdata
+xcshareddata
 
 # macOS files
 .DS_Store
@@ -59,3 +60,5 @@ captures
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
+
+package-lock.json

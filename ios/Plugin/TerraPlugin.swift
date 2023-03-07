@@ -22,8 +22,33 @@ public class TerraPlugin: CAPPlugin {
         return true
     }
 
+     private func errorMessage(_ err: TerraError) -> String{
+        switch(err){
+            case .HealthKitUnavailable: return "Health Kit Unavailable"
+            case .ServiceUnavailable: return "Service Unavailable"
+            case .Unauthenticated: return "Unauthenticated"
+            case .InvalidUserID: return "Invalid User ID"
+            case .InvalidDevID: return "Invalid Dev ID"
+            case .Forbidden: return "Forbidden"
+            case .BadRequest: return "Bad Request"
+            case .UnknownOpcode: return "Unknown Op Code"
+            case .UnexpectedError: return "Unexpected Error"
+            case .NFCError: return "NFC Error"
+            case .SensorExpired: return "Sensor Expired"
+            case .SensorReadingFailed: return "Sensor Reading Failed"
+            case .NoInternet: return "No Internet"
+            case .UserLimitsReached: return "User Limit Reached"
+            case .IncorrectDevId: return "Incorrect Dev ID"
+            case .InvalidToken: return "Invalid Token"
+            case .HealthKitAuthorizationError: return "Health Kit Authorization Error"
+            case .UnsupportedResource: return "Unsupported Resource"
+            default: "Unknown Error Type. Please contact dev@tryterra.co"
+        }
+        return ""
+    } 
+
     // terra instance managed
-    private var terra: Terra?
+    private var terra: TerraManager?
     
     // connection type translate
     private func connectionParse(connection: String) -> Connections? {
@@ -121,7 +146,6 @@ public class TerraPlugin: CAPPlugin {
             default:
                 return nil
         }
-        return nil
     }
     
     private func customPermissionsSet(customPermissions: [String]) -> Set<CustomPermissions> {
@@ -137,35 +161,53 @@ public class TerraPlugin: CAPPlugin {
     // initialize
     @objc
     func initTerra(_ call: CAPPluginCall){
-        terra = Terra(
+        Terra.instance(
             devId: call.getString("devId") ?? "",
             referenceId: call.getString("referenceId") ?? nil
-        ){
-            success in call.resolve(["success": success])
+        ){instance, error in
+            if let error = error{
+                call.resolve(["success": false, "error": self.errorMessage(error)])
+            }
+            else{
+                self.terra = instance
+                call.resolve(["success": true])
+            }
         }
-        // call.resolve(true)
     }
     
     @objc
     func initConnection(_ call: CAPPluginCall){
         let connection = call.getString("connection") ?? ""
-        let token = call.getString("token") ?? ""
+        guard let token = call.getString("token") else {
+            call.resolve(["success": false, "error": "Invalid Token"])
+            return
+        }
         let schedulerOn = call.getBool("schedulerOn") ?? false
         let customPermissions = (call.getArray("customPermissions") ?? []) as! [String]
+
         if let connection = connectionParse(connection: connection){
-            terra?.initConnection(type: connection, token: token, customReadTypes: customPermissionsSet(customPermissions: customPermissions), schedulerOn: schedulerOn){
-                success in call.resolve(["success": success])
-            }
+            terra?.initConnection(type: connection, token: token, customReadTypes: customPermissionsSet(customPermissions: customPermissions), schedulerOn: schedulerOn, completion: {success, error in
+                    if let error = error{
+                        call.resolve(["success": success, "error": self.errorMessage(error)])
+                    }
+                    else{
+                        call.resolve(["success": success])
+                    }
+                }
+            )
         }
         else {
-            call.resolve(["success": false])
+            call.resolve(["success": false, "error": "Invalid Connection Type"])
         }
     }
 
     @objc
     func getUserId(_ call: CAPPluginCall){
         if let connection = connectionParse(connection: call.getString("connection") ?? ""){
-            call.resolve(["user_id": terra?.getUserId(type: connection) ?? ""])
+            call.resolve(["success": true, "userId": terra?.getUserId(type: connection)])
+        }
+        else{
+            call.resolve(["success": false, "error": "Invalid COnnection Type"])
         }
     }
     
@@ -173,75 +215,318 @@ public class TerraPlugin: CAPPlugin {
     @objc
     func getBody(_ call: CAPPluginCall){
         let connection = call.getString("connection") ?? ""
-        let startDate = call.getDate("startDate")!
+        guard let startDate = call.getDate("startDate") else {
+            call.resolve(["success": false, "error": "Require startDate parameter"])
+            return
+        }
         let endDate = call.getDate("endDate") ?? nil
+        let toWebhook = call.getBool("toWebhook") ?? true
         if let connection = connectionParse(connection: connection){
             if endDate != nil {
-                terra?.getBody(type: connection, startDate: startDate, endDate: endDate!){(success) in call.resolve(["success": success])}
+                terra?.getBody(type: connection, startDate: startDate, endDate: endDate!, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
             } else {
-                terra?.getBody(type: connection, startDate: startDate){(success) in call.resolve(["success": success])}
+                terra?.getBody(type: connection, startDate: startDate, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
             }
         }
         else{
-            call.resolve(["success": false])
+            call.resolve(["success": false, "error": "Invalid Connection Type"])
         }
     }
     @objc
     func getActivity(_ call: CAPPluginCall){
         let connection = call.getString("connection") ?? ""
-        let startDate = call.getDate("startDate")!
+        guard let startDate = call.getDate("startDate") else {
+            call.resolve(["success": false, "error": "Require startDate parameter"])
+            return
+        }
         let endDate = call.getDate("endDate") ?? nil
+        let toWebhook = call.getBool("toWebhook") ?? true
         if let connection = connectionParse(connection: connection){
             if endDate != nil {
-                terra?.getActivity(type: connection, startDate: startDate, endDate: endDate!){(success) in call.resolve(["success": success])}
+                terra?.getActivity(type: connection, startDate: startDate, endDate: endDate!, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
             } else {
-                terra?.getActivity(type: connection, startDate: startDate){(success) in call.resolve(["success": success])}
+                terra?.getActivity(type: connection, startDate: startDate, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
             }
         }
         else{
-            call.resolve(["success": false])
+            call.resolve(["success": false, "error": "Invalid Connection Type"])
         }
     }
+
+    @objc
+    func getNutrition(_ call: CAPPluginCall){
+        let connection = call.getString("connection") ?? ""
+        guard let startDate = call.getDate("startDate") else {
+            call.resolve(["success": false, "error": "Require startDate parameter"])
+            return
+        }
+        let endDate = call.getDate("endDate") ?? nil
+        let toWebhook = call.getBool("toWebhook") ?? true
+        if let connection = connectionParse(connection: connection){
+            if endDate != nil {
+                terra?.getNutrition(type: connection, startDate: startDate, endDate: endDate!, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
+            } else {
+                terra?.getNutrition(type: connection, startDate: startDate, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
+            }
+        }
+        else{
+            call.resolve(["success": false, "error": "Invalid Connection Type"])
+        }
+    }
+
+    @objc
+    func getMenstruation(_ call: CAPPluginCall){
+        let connection = call.getString("connection") ?? ""
+        guard let startDate = call.getDate("startDate") else {
+            call.resolve(["success": false, "error": "Require startDate parameter"])
+            return
+        }
+        let endDate = call.getDate("endDate") ?? nil
+        let toWebhook = call.getBool("toWebhook") ?? true
+        if let connection = connectionParse(connection: connection){
+            if endDate != nil {
+                terra?.getMenstruation(type: connection, startDate: startDate, endDate: endDate!, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
+            } else {
+                terra?.getMenstruation(type: connection, startDate: startDate, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
+            }
+        }
+        else{
+            call.resolve(["success": false, "error": "Invalid Connection Type"])
+        }
+    }
+
     @objc
     func getAthlete(_ call: CAPPluginCall){
         let connection = call.getString("connection") ?? ""
+        let toWebhook = call.getBool("toWebhook") ?? true
         if let connection = connectionParse(connection: connection){
-            terra?.getAthlete(type: connection){(success) in call.resolve(["success": success])}
+            terra?.getAthlete(type: connection, toWebhook: toWebhook){
+                (success, data, err) in 
+                if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                }
+                else{
+                    do {
+                        let jsonData = try JSONEncoder().encode(data)
+                        call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                    }
+                    catch {
+                        call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                    }
+                }
+            }        
         }
         else{
-            call.resolve(["success": false])
+            call.resolve(["success": false, "error": "Invalid Connection Type"])
         }
     }
     @objc
     func getDaily(_ call: CAPPluginCall){
         let connection = call.getString("connection") ?? ""
-        let startDate = call.getDate("startDate")!
+        guard let startDate = call.getDate("startDate") else {
+            call.resolve(["success": false, "error": "Require startDate parameter"])
+            return
+        }
         let endDate = call.getDate("endDate") ?? nil
+        let toWebhook = call.getBool("toWebhook") ?? true
         if let connection = connectionParse(connection: connection){
             if endDate != nil {
-                terra?.getDaily(type: connection, startDate: startDate, endDate: endDate!){(success) in call.resolve(["success": success])}
+                terra?.getDaily(type: connection, startDate: startDate, endDate: endDate!, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
             } else {
-                terra?.getDaily(type: connection, startDate: startDate){(success) in call.resolve(["success": success])}
+                terra?.getDaily(type: connection, startDate: startDate, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
             }
         }
         else{
-            call.resolve(["success": false])
+            call.resolve(["success": false, "error": "Invalid Connection Type"])
         }
     }
+
     @objc
     func getSleep(_ call: CAPPluginCall){
         let connection = call.getString("connection") ?? ""
-        let startDate = call.getDate("startDate")!
+        guard let startDate = call.getDate("startDate") else {
+            call.resolve(["success": false, "error": "Require startDate parameter"])
+            return
+        }
         let endDate = call.getDate("endDate") ?? nil
+        let toWebhook = call.getBool("toWebhook") ?? true
         if let connection = connectionParse(connection: connection){
             if endDate != nil {
-                terra?.getSleep(type: connection, startDate: startDate, endDate: endDate!){(success) in call.resolve(["success": success])}
+                terra?.getSleep(type: connection, startDate: startDate, endDate: endDate!, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
             } else {
-                terra?.getSleep(type: connection, startDate: startDate){(success) in call.resolve(["success": success])}
+                terra?.getSleep(type: connection, startDate: startDate, toWebhook: toWebhook){
+                    (success, data, err) in 
+                    if let err = err {
+                        call.resolve(["success": false, "data": nil, "error": self.errorMessage(err)])
+                    }
+                    else{
+                        do {
+                            let jsonData = try JSONEncoder().encode(data)
+                            call.resolve(["success": success, "data": String(data: jsonData, encoding: .utf8) ?? ""])
+                        }
+                        catch {
+                            call.resolve(["success": success, "error": "Error decoding data into correct format"])
+                        }
+                    }
+                }            
             }
         }
         else{
-            call.resolve(["success": false])
+            call.resolve(["success": false, "error": "Invalid Connection Type"])
         }
     }
     
@@ -251,7 +536,7 @@ public class TerraPlugin: CAPPlugin {
         terra?.readGlucoseData{(details) in
             do {
                 let jsonData = try JSONEncoder().encode(details)
-                call.resolve(["data": String(data: jsonData, encoding: .utf8) ?? ""])
+                call.resolve(["success": true, "data": String(data: jsonData, encoding: .utf8) ?? ""])
             }
             catch {
                 print(error) //Should never execute
@@ -264,7 +549,7 @@ public class TerraPlugin: CAPPlugin {
         terra?.activateSensor{(details) in
             do {
                 let jsonData = try JSONEncoder().encode(details)
-                call.resolve(["data": String(data: jsonData, encoding: .utf8) ?? "", "success": true])
+                call.resolve(["success": true, "data": String(data: jsonData, encoding: .utf8) ?? ""])
             }
             catch {
                 print(error) //Should never execute

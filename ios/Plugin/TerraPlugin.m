@@ -13,6 +13,8 @@ CAP_PLUGIN(TerraPlugin, "TerraCapacitor",
     CAP_PLUGIN_METHOD(getDaily, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(getNutrition, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(getSleep, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(getNutrition, CAPPluginReturnPromise);
+    CAP_PLUGIN_METHOD(getMenstruation, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(getAthlete, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(activateSensor, CAPPluginReturnPromise);
     CAP_PLUGIN_METHOD(setUpBackgroundDelivery, CAPPluginReturnPromise);

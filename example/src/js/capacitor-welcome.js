@@ -7,48 +7,53 @@ window.customElements.define(
   class extends HTMLElement {
     constructor() {
       super();
-
       Terra.echo({ value: 'Echo function test' });
-      const connection = Connections.APPLE_HEALTH;
+      const connection = Connections.SAMSUNG;
       // terra functions example
-      Terra.initTerra({ devId: 'devid', referenceId: 'referenceid' })
+      Terra.initTerra({ devId: 'devId', referenceId: 'referenceid' })
         .then(res => {
-          console.log('initTerra', res);
+          console.log('initTerra', res.success);
           Terra.initConnection({
             connection: connection,
             token: 'token',
-            schedulerOn: false,
+            schedulerOn: true,
             customPermissions: [],
-            startIntent: 'someIntent',
+            startIntent: null,
+          }).then(a => {
+            console.log('initConnection', a.success, a.error);
+            Terra.getActivity({
+              connection: connection,
+              startDate: new Date(),
+              toWebhook: false,
+            }).then(r => console.log('getActivity', r.data));
+            Terra.getBody({
+              connection: connection,
+              startDate: new Date(),
+              toWebhook: false,
+            }).then(r => console.log('getBody', r.data));
+            Terra.getUserId({
+              connection: connection
+            }).then(r => console.log("get user id", r.userId));
+            Terra.getDaily({
+              connection: connection,
+              startDate: new Date(),
+              toWebhook: false,
+            }).then(r => console.log('getDaily', r));
+            Terra.getNutrition({
+              connection: connection,
+              startDate: new Date(),
+            }).then(r => console.log('getNutrition', r));
+            Terra.getSleep({
+              connection: connection,
+              startDate: new Date(),
+              toWebhook: false,
+            }).then(r => console.log('getSleep', r));
+            Terra.getAthlete({
+              connection: connection,
+            }).then(r => console.log('getAthlete', r));
           });
-        })
-        .then(a => {
-          console.log('initConnection', a);
-          Terra.getActivity({
-            connection: connection,
-            startDate: new Date(),
-          }).then(r => console.log('getActivity', r));
-          Terra.getBody({
-            connection: connection,
-            startDate: new Date(),
-          }).then(r => console.log('getBody', r));
-          Terra.getDaily({
-            connection: connection,
-            startDate: new Date(),
-          }).then(r => console.log('getDaily', r));
-          Terra.getNutrition({
-            connection: connection,
-            startDate: new Date(),
-          }).then(r => console.log('getNutrition', r));
-          Terra.getSleep({
-            connection: connection,
-            startDate: new Date(),
-          }).then(r => console.log('getSleep', r));
-          Terra.getAthlete({
-            connection: connection,
-          }).then(r => console.log('getAthlete', r));
           // Terra.activateSensor().then(r => console.log('activateSensor', r));
-          // Terra.readGlucoseData().then(r => console.log('readGlucoseData', r));
+          // Terra.readGlucoseData().then(r => console.log('readGlucoseData', r.data));
         })
         .catch(e => console.log('error', e));
       SplashScreen.hide();
