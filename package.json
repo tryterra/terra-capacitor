@@ -1,6 +1,6 @@
 {
   "name": "terra-capacitor",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Wrap TerraiOS and TerraAndroid for capacitor projects",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",

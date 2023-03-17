@@ -149,7 +149,7 @@ public class TerraPlugin extends Plugin {
 
         co.tryterra.terra.Terra.Companion.instance(
                 devId,
-                call.getString("devId"),
+                call.getString("referenceId"),
                 Objects.requireNonNull(this.getContext()),
                 (terraManager, error) ->{
                     this.terra = terraManager;
