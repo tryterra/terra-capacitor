@@ -183,12 +183,12 @@ public class TerraPlugin extends Plugin {
         }
 
         boolean schedulerOn = Boolean.TRUE.equals(call.getBoolean("schedulerOn"));
-        JSArray customPermissions = call.getArray("customPermission");
+        JSArray customPermissions = call.getArray("customPermissions", new JSArray());
 
         HashSet<CustomPermissions> cPermissions = new HashSet<>();
         try {
             for (Object customPermission : customPermissions.toList()) {
-                if (parseCustomPermission((String) customPermission)  == null) {
+                if (parseCustomPermission((String) customPermission) == null) {
                     continue;
                 }
                 cPermissions.add(parseCustomPermission((String) customPermission));
