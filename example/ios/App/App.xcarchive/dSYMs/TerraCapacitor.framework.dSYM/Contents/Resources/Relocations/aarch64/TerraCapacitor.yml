@@ -1,0 +1,93 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/elliottyu/Library/Developer/Xcode/DerivedData/App-ghqijcxvgtbetjdcvmimhnigenml/Build/Intermediates.noindex/ArchiveIntermediates/App/IntermediateBuildFilesPath/UninstalledProducts/iphoneos/TerraCapacitor.framework/TerraCapacitor'
+relocations:
+  - { offsetInCU: 0x34, offset: 0x5C798, size: 0x8, addend: 0x0, symName: _TerraCapacitorVersionString, symObjAddr: 0x0, symBinAddr: 0xC7C0, symSize: 0x0 }
+  - { offsetInCU: 0x69, offset: 0x5C7CD, size: 0x8, addend: 0x0, symName: _TerraCapacitorVersionNumber, symObjAddr: 0x30, symBinAddr: 0xC7F0, symSize: 0x0 }
+  - { offsetInCU: 0x27, offset: 0x5C80A, size: 0x8, addend: 0x0, symName: '+[TerraPlugin(CAPPluginCategory) pluginMethods]', symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x318 }
+  - { offsetInCU: 0x4A, offset: 0x5C82D, size: 0x8, addend: 0x0, symName: '+[TerraPlugin(CAPPluginCategory) pluginMethods]', symObjAddr: 0x0, symBinAddr: 0x4000, symSize: 0x318 }
+  - { offsetInCU: 0x8D, offset: 0x5C870, size: 0x8, addend: 0x0, symName: '+[TerraPlugin(CAPPluginCategory) getMethod:]', symObjAddr: 0x318, symBinAddr: 0x4318, symSize: 0x164 }
+  - { offsetInCU: 0x103, offset: 0x5C8E6, size: 0x8, addend: 0x0, symName: '+[TerraPlugin(CAPPluginCategory) pluginId]', symObjAddr: 0x47C, symBinAddr: 0x447C, symSize: 0xC }
+  - { offsetInCU: 0x136, offset: 0x5C919, size: 0x8, addend: 0x0, symName: '+[TerraPlugin(CAPPluginCategory) jsName]', symObjAddr: 0x488, symBinAddr: 0x4488, symSize: 0xC }
+  - { offsetInCU: 0x27, offset: 0x5C9B7, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitorAAC4echoyS2SF', symObjAddr: 0x0, symBinAddr: 0x4494, symSize: 0x34 }
+  - { offsetInCU: 0x4B, offset: 0x5C9DB, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitorAAC4echoyS2SF', symObjAddr: 0x0, symBinAddr: 0x4494, symSize: 0x34 }
+  - { offsetInCU: 0x6E, offset: 0x5C9FE, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitorAAC4echoyS2SFTo', symObjAddr: 0x34, symBinAddr: 0x44C8, symSize: 0x88 }
+  - { offsetInCU: 0xA0, offset: 0x5CA30, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitorAACABycfC', symObjAddr: 0xBC, symBinAddr: 0x4550, symSize: 0x20 }
+  - { offsetInCU: 0xB4, offset: 0x5CA44, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitorAACABycfc', symObjAddr: 0xDC, symBinAddr: 0x4570, symSize: 0x30 }
+  - { offsetInCU: 0xEF, offset: 0x5CA7F, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitorAACABycfcTo', symObjAddr: 0x10C, symBinAddr: 0x45A0, symSize: 0x3C }
+  - { offsetInCU: 0x12A, offset: 0x5CABA, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitorAACfD', symObjAddr: 0x148, symBinAddr: 0x45DC, symSize: 0x30 }
+  - { offsetInCU: 0x168, offset: 0x5CAF8, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitorAAC4echoyS2SFTf4nd_g', symObjAddr: 0x1A0, symBinAddr: 0x4634, symSize: 0xDC }
+  - { offsetInCU: 0x294, offset: 0x5CC24, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC14implementation33_6F737A924484E8C726403F6D5C045BBDLLA2ACvpfi', symObjAddr: 0x178, symBinAddr: 0x460C, symSize: 0x20 }
+  - { offsetInCU: 0x2C2, offset: 0x5CC52, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC5terra33_6F737A924484E8C726403F6D5C045BBDLL8TerraiOS0A7ManagerCSgvpfi', symObjAddr: 0x198, symBinAddr: 0x462C, symSize: 0x8 }
+  - { offsetInCU: 0x33D, offset: 0x5CCCD, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitorAACMa', symObjAddr: 0x27C, symBinAddr: 0x4710, symSize: 0x20 }
+  - { offsetInCU: 0x351, offset: 0x5CCE1, size: 0x8, addend: 0x0, symName: ___swift_instantiateConcreteTypeFromMangledName, symObjAddr: 0x29C, symBinAddr: 0x4730, symSize: 0x40 }
+  - { offsetInCU: 0x5E, offset: 0x5CE9B, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC4echoyySo13CAPPluginCallCFTo', symObjAddr: 0x0, symBinAddr: 0x4770, symSize: 0x4C }
+  - { offsetInCU: 0x90, offset: 0x5CECD, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC22requiresMainQueueSetupSbyFZTo', symObjAddr: 0x4C, symBinAddr: 0x47BC, symSize: 0x8 }
+  - { offsetInCU: 0xAC, offset: 0x5CEE9, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC15connectionParse33_6F737A924484E8C726403F6D5C045BBDLL0D08TerraiOS11ConnectionsOSgSS_tF', symObjAddr: 0x54, symBinAddr: 0x47C4, symSize: 0x1C8 }
+  - { offsetInCU: 0x18F, offset: 0x5CFCC, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC21customPermissionParse33_6F737A924484E8C726403F6D5C045BBDLL01cE08TerraiOS17CustomPermissionsOSgSS_tF', symObjAddr: 0x21C, symBinAddr: 0x498C, symSize: 0xDF4 }
+  - { offsetInCU: 0x7D0, offset: 0x5D60D, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC04initA0yySo13CAPPluginCallCF', symObjAddr: 0x1010, symBinAddr: 0x5780, symSize: 0x130 }
+  - { offsetInCU: 0x80E, offset: 0x5D64B, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC04initA0yySo13CAPPluginCallCFy8TerraiOS0A7ManagerCSg_AG0A5ErrorOSgtcfU_', symObjAddr: 0x1140, symBinAddr: 0x58B0, symSize: 0x300 }
+  - { offsetInCU: 0xA45, offset: 0x5D882, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC04initA0yySo13CAPPluginCallCFTo', symObjAddr: 0x1440, symBinAddr: 0x5BB0, symSize: 0x50 }
+  - { offsetInCU: 0xAC7, offset: 0x5D904, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC14initConnectionyySo13CAPPluginCallCF', symObjAddr: 0x1490, symBinAddr: 0x5C00, symSize: 0x69C }
+  - { offsetInCU: 0xE1E, offset: 0x5DC5B, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC14initConnectionyySo13CAPPluginCallCFySb_8TerraiOS0A5ErrorOSgtcfU_', symObjAddr: 0x1C58, symBinAddr: 0x63C8, symSize: 0x2E0 }
+  - { offsetInCU: 0xFD6, offset: 0x5DE13, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC14initConnectionyySo13CAPPluginCallCFTo', symObjAddr: 0x1F38, symBinAddr: 0x66A8, symSize: 0x50 }
+  - { offsetInCU: 0xFF2, offset: 0x5DE2F, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC9getUserIdyySo13CAPPluginCallCF', symObjAddr: 0x1F88, symBinAddr: 0x66F8, symSize: 0x3A8 }
+  - { offsetInCU: 0x11B6, offset: 0x5DFF3, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC9getUserIdyySo13CAPPluginCallCFTo', symObjAddr: 0x2330, symBinAddr: 0x6AA0, symSize: 0x50 }
+  - { offsetInCU: 0x11D2, offset: 0x5E00F, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC7getBodyyySo13CAPPluginCallCF', symObjAddr: 0x2380, symBinAddr: 0x6AF0, symSize: 0x928 }
+  - { offsetInCU: 0x1440, offset: 0x5E27D, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC7getBodyyySo13CAPPluginCallCFTo', symObjAddr: 0x322C, symBinAddr: 0x799C, symSize: 0x50 }
+  - { offsetInCU: 0x145C, offset: 0x5E299, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC11getActivityyySo13CAPPluginCallCFTo', symObjAddr: 0x32A8, symBinAddr: 0x7A18, symSize: 0x50 }
+  - { offsetInCU: 0x1478, offset: 0x5E2B5, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC12getNutritionyySo13CAPPluginCallCFTo', symObjAddr: 0x3C48, symBinAddr: 0x83B8, symSize: 0x50 }
+  - { offsetInCU: 0x1494, offset: 0x5E2D1, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC15getMenstruationyySo13CAPPluginCallCFTo', symObjAddr: 0x3CC4, symBinAddr: 0x8434, symSize: 0x50 }
+  - { offsetInCU: 0x14B0, offset: 0x5E2ED, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC10getAthleteyySo13CAPPluginCallCF', symObjAddr: 0x3D14, symBinAddr: 0x8484, symSize: 0x34C }
+  - { offsetInCU: 0x1605, offset: 0x5E442, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC10getAthleteyySo13CAPPluginCallCFTo', symObjAddr: 0x4060, symBinAddr: 0x87D0, symSize: 0x50 }
+  - { offsetInCU: 0x1621, offset: 0x5E45E, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC8getDailyyySo13CAPPluginCallCFTo', symObjAddr: 0x40DC, symBinAddr: 0x884C, symSize: 0x50 }
+  - { offsetInCU: 0x163D, offset: 0x5E47A, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC8getSleepyySo13CAPPluginCallCFTo', symObjAddr: 0x4158, symBinAddr: 0x88C8, symSize: 0x50 }
+  - { offsetInCU: 0x1659, offset: 0x5E496, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC6bridge8pluginId0E4NameAC0B017CAPBridgeProtocol_p_S2StcfC', symObjAddr: 0x4544, symBinAddr: 0x8CB4, symSize: 0xB4 }
+  - { offsetInCU: 0x1677, offset: 0x5E4B4, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC6bridge8pluginId0E4NameAC0B017CAPBridgeProtocol_p_S2Stcfc', symObjAddr: 0x45F8, symBinAddr: 0x8D68, symSize: 0x11C }
+  - { offsetInCU: 0x16DD, offset: 0x5E51A, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC6bridge8pluginId0E4NameAC0B017CAPBridgeProtocol_p_S2StcfcTo', symObjAddr: 0x4734, symBinAddr: 0x8EA4, symSize: 0x74 }
+  - { offsetInCU: 0x16F9, offset: 0x5E536, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginCACycfC', symObjAddr: 0x47A8, symBinAddr: 0x8F18, symSize: 0x20 }
+  - { offsetInCU: 0x1717, offset: 0x5E554, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginCACycfc', symObjAddr: 0x47C8, symBinAddr: 0x8F38, symSize: 0x94 }
+  - { offsetInCU: 0x1761, offset: 0x5E59E, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginCACycfcTo', symObjAddr: 0x485C, symBinAddr: 0x8FCC, symSize: 0x98 }
+  - { offsetInCU: 0x17A1, offset: 0x5E5DE, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginCfD', symObjAddr: 0x48F4, symBinAddr: 0x9064, symSize: 0x30 }
+  - { offsetInCU: 0x17CE, offset: 0x5E60B, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC4echoyySo13CAPPluginCallCFTf4nd_n', symObjAddr: 0x5CBC, symBinAddr: 0xA3EC, symSize: 0x160 }
+  - { offsetInCU: 0x18D1, offset: 0x5E70E, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC12errorMessage33_6F737A924484E8C726403F6D5C045BBDLLySS8TerraiOS0A5ErrorOFTf4nd_n', symObjAddr: 0x5E1C, symBinAddr: 0xA54C, symSize: 0x3D8 }
+  - { offsetInCU: 0x1AE0, offset: 0x5E91D, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginCMa', symObjAddr: 0x4714, symBinAddr: 0x8E84, symSize: 0x20 }
+  - { offsetInCU: 0x1AF4, offset: 0x5E931, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginCfETo', symObjAddr: 0x4924, symBinAddr: 0x9094, symSize: 0x38 }
+  - { offsetInCU: 0x1B23, offset: 0x5E960, size: 0x8, addend: 0x0, symName: '_$sSo13CAPPluginCallCMa', symObjAddr: 0x499C, symBinAddr: 0x90CC, symSize: 0x3C }
+  - { offsetInCU: 0x1B4D, offset: 0x5E98A, size: 0x8, addend: 0x0, symName: '_$ss22__RawDictionaryStorageC4findys10_HashTableV6BucketV6bucket_Sb5foundtxSHRzlFSS_Tg5', symObjAddr: 0x49D8, symBinAddr: 0x9108, symSize: 0x64 }
+  - { offsetInCU: 0x1B9A, offset: 0x5E9D7, size: 0x8, addend: 0x0, symName: '_$ss22__RawDictionaryStorageC4find_9hashValues10_HashTableV6BucketV6bucket_Sb5foundtx_SitSHRzlFSS_Tg5', symObjAddr: 0x4A3C, symBinAddr: 0x916C, symSize: 0xE0 }
+  - { offsetInCU: 0x1BFA, offset: 0x5EA37, size: 0x8, addend: 0x0, symName: '_$sSh8_VariantV6insertySb8inserted_x17memberAfterInserttxnF8TerraiOS17CustomPermissionsO_Tg5', symObjAddr: 0x4B1C, symBinAddr: 0x924C, symSize: 0x254 }
+  - { offsetInCU: 0x1C5D, offset: 0x5EA9A, size: 0x8, addend: 0x0, symName: '_$ss10_NativeSetV9insertNew_2at8isUniqueyxn_s10_HashTableV6BucketVSbtF8TerraiOS17CustomPermissionsO_Tg5', symObjAddr: 0x4D70, symBinAddr: 0x94A0, symSize: 0x23C }
+  - { offsetInCU: 0x1CDE, offset: 0x5EB1B, size: 0x8, addend: 0x0, symName: '_$ss10_NativeSetV4copyyyF8TerraiOS17CustomPermissionsO_Tg5', symObjAddr: 0x4FAC, symBinAddr: 0x96DC, symSize: 0x220 }
+  - { offsetInCU: 0x1D4D, offset: 0x5EB8A, size: 0x8, addend: 0x0, symName: '_$ss10_NativeSetV13copyAndResize8capacityySi_tF8TerraiOS17CustomPermissionsO_Tg5', symObjAddr: 0x51CC, symBinAddr: 0x98FC, symSize: 0x318 }
+  - { offsetInCU: 0x1DF2, offset: 0x5EC2F, size: 0x8, addend: 0x0, symName: '_$ss10_NativeSetV6resize8capacityySi_tF8TerraiOS17CustomPermissionsO_Tg5', symObjAddr: 0x54E4, symBinAddr: 0x9C14, symSize: 0x3B8 }
+  - { offsetInCU: 0x1EB6, offset: 0x5ECF3, size: 0x8, addend: 0x0, symName: '_$ss15ContiguousArrayV16_createNewBuffer14bufferIsUnique15minimumCapacity13growForAppendySb_SiSbtFSS_Tg5', symObjAddr: 0x589C, symBinAddr: 0x9FCC, symSize: 0x1C }
+  - { offsetInCU: 0x1F26, offset: 0x5ED63, size: 0x8, addend: 0x0, symName: '_$ss22_ContiguousArrayBufferV20_consumeAndCreateNew14bufferIsUnique15minimumCapacity13growForAppendAByxGSb_SiSbtFSS_Tg5', symObjAddr: 0x58B8, symBinAddr: 0x9FE8, symSize: 0x104 }
+  - { offsetInCU: 0x2094, offset: 0x5EED1, size: 0x8, addend: 0x0, symName: '_$s10Foundation4DateVSgWOb', symObjAddr: 0x5ACC, symBinAddr: 0xA1FC, symSize: 0x48 }
+  - { offsetInCU: 0x20A8, offset: 0x5EEE5, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC8getSleepyySo13CAPPluginCallCFySb_8TerraiOS0aE16DataPayloadModelVSgAG0A5ErrorOSgtcfU0_TA', symObjAddr: 0x5B40, symBinAddr: 0xA270, symSize: 0x28 }
+  - { offsetInCU: 0x20BC, offset: 0x5EEF9, size: 0x8, addend: 0x0, symName: '_$s8TerraiOS26TerraSleepDataPayloadModelVSgxSgSEsSERzlWl', symObjAddr: 0x5BA4, symBinAddr: 0xA2D4, symSize: 0x88 }
+  - { offsetInCU: 0x20D0, offset: 0x5EF0D, size: 0x8, addend: 0x0, symName: '_$s10Foundation4DataV15_RepresentationOWOe', symObjAddr: 0x5C2C, symBinAddr: 0xA35C, symSize: 0x44 }
+  - { offsetInCU: 0x20E4, offset: 0x5EF21, size: 0x8, addend: 0x0, symName: ___swift_destroy_boxed_opaque_existential_0, symObjAddr: 0x5C9C, symBinAddr: 0xA3CC, symSize: 0x20 }
+  - { offsetInCU: 0x20F8, offset: 0x5EF35, size: 0x8, addend: 0x0, symName: '_$sypWOb', symObjAddr: 0x6238, symBinAddr: 0xA968, symSize: 0x10 }
+  - { offsetInCU: 0x210C, offset: 0x5EF49, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC8getDailyyySo13CAPPluginCallCFySb_8TerraiOS0aE16DataPayloadModelVSgAG0A5ErrorOSgtcfU0_TA', symObjAddr: 0x6248, symBinAddr: 0xA978, symSize: 0x28 }
+  - { offsetInCU: 0x2120, offset: 0x5EF5D, size: 0x8, addend: 0x0, symName: '_$s8TerraiOS26TerraDailyDataPayloadModelVSgxSgSEsSERzlWl', symObjAddr: 0x6270, symBinAddr: 0xA9A0, symSize: 0x88 }
+  - { offsetInCU: 0x2134, offset: 0x5EF71, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC10getAthleteyySo13CAPPluginCallCFySb_8TerraiOS0aE16DataPayloadModelVSgAG0A5ErrorOSgtcfU_TA', symObjAddr: 0x62F8, symBinAddr: 0xAA28, symSize: 0x28 }
+  - { offsetInCU: 0x2148, offset: 0x5EF85, size: 0x8, addend: 0x0, symName: '_$s8TerraiOS28TerraAthleteDataPayloadModelVSgxSgSEsSERzlWl', symObjAddr: 0x6320, symBinAddr: 0xAA50, symSize: 0x88 }
+  - { offsetInCU: 0x215C, offset: 0x5EF99, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC15getMenstruationyySo13CAPPluginCallCFySb_8TerraiOS0aE16DataPayloadModelVSgAG0A5ErrorOSgtcfU0_TA', symObjAddr: 0x63A8, symBinAddr: 0xAAD8, symSize: 0x28 }
+  - { offsetInCU: 0x2170, offset: 0x5EFAD, size: 0x8, addend: 0x0, symName: '_$s8TerraiOS33TerraMenstruationDataPayloadModelVSgxSgSEsSERzlWl', symObjAddr: 0x63D0, symBinAddr: 0xAB00, symSize: 0x88 }
+  - { offsetInCU: 0x2184, offset: 0x5EFC1, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC12getNutritionyySo13CAPPluginCallCFySb_8TerraiOS0aE16DataPayloadModelVSgAG0A5ErrorOSgtcfU0_TA', symObjAddr: 0x6458, symBinAddr: 0xAB88, symSize: 0x28 }
+  - { offsetInCU: 0x2198, offset: 0x5EFD5, size: 0x8, addend: 0x0, symName: '_$s8TerraiOS30TerraNutritionDataPayloadModelVSgxSgSEsSERzlWl', symObjAddr: 0x6480, symBinAddr: 0xABB0, symSize: 0x88 }
+  - { offsetInCU: 0x21AC, offset: 0x5EFE9, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC11getActivityyySo13CAPPluginCallCFySb_8TerraiOS0aE16DataPayloadModelVSgAG0A5ErrorOSgtcfU0_TA', symObjAddr: 0x6508, symBinAddr: 0xAC38, symSize: 0x28 }
+  - { offsetInCU: 0x21C0, offset: 0x5EFFD, size: 0x8, addend: 0x0, symName: '_$s8TerraiOS29TerraActivityDataPayloadModelVSgxSgSEsSERzlWl', symObjAddr: 0x6530, symBinAddr: 0xAC60, symSize: 0x88 }
+  - { offsetInCU: 0x21D4, offset: 0x5F011, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC7getBodyyySo13CAPPluginCallCFySb_8TerraiOS0aE16DataPayloadModelVSgAG0A5ErrorOSgtcfU0_TA', symObjAddr: 0x65B8, symBinAddr: 0xACE8, symSize: 0x28 }
+  - { offsetInCU: 0x21E8, offset: 0x5F025, size: 0x8, addend: 0x0, symName: '_$s8TerraiOS25TerraBodyDataPayloadModelVSgxSgSEsSERzlWl', symObjAddr: 0x65E0, symBinAddr: 0xAD10, symSize: 0x88 }
+  - { offsetInCU: 0x2275, offset: 0x5F0B2, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC14initConnectionyySo13CAPPluginCallCFySb_8TerraiOS0A5ErrorOSgtcfU_TA', symObjAddr: 0x678C, symBinAddr: 0xAEBC, symSize: 0x8 }
+  - { offsetInCU: 0x2289, offset: 0x5F0C6, size: 0x8, addend: 0x0, symName: '_$s9Capacitor7JSValue_pWOc', symObjAddr: 0x6794, symBinAddr: 0xAEC4, symSize: 0x44 }
+  - { offsetInCU: 0x229D, offset: 0x5F0DA, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC04initA0yySo13CAPPluginCallCFy8TerraiOS0A7ManagerCSg_AG0A5ErrorOSgtcfU_TA', symObjAddr: 0x67D8, symBinAddr: 0xAF08, symSize: 0x8 }
+  - { offsetInCU: 0x22B1, offset: 0x5F0EE, size: 0x8, addend: 0x0, symName: '_$s14TerraCapacitor0A6PluginC14activateSensoryySo13CAPPluginCallCFy8TerraiOS16FSLSensorDetailsVSgcfU_TA', symObjAddr: 0x6804, symBinAddr: 0xAF34, symSize: 0x18 }
+  - { offsetInCU: 0x22C5, offset: 0x5F102, size: 0x8, addend: 0x0, symName: '_$s8TerraiOS16FSLSensorDetailsVSgxSgSEsSERzlWl', symObjAddr: 0x681C, symBinAddr: 0xAF4C, symSize: 0x88 }
+  - { offsetInCU: 0x22D9, offset: 0x5F116, size: 0x8, addend: 0x0, symName: ___swift_allocate_boxed_opaque_existential_0, symObjAddr: 0x6930, symBinAddr: 0xB060, symSize: 0x3C }
+  - { offsetInCU: 0x23FD, offset: 0x5F23A, size: 0x8, addend: 0x0, symName: '_$ss15_arrayForceCastySayq_GSayxGr0_lF9Capacitor7JSValue_p_SSTg5', symObjAddr: 0x1B2C, symBinAddr: 0x629C, symSize: 0x12C }
+  - { offsetInCU: 0x2597, offset: 0x5F3D4, size: 0x8, addend: 0x0, symName: '_$sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTg5Tf4gd_n', symObjAddr: 0x59BC, symBinAddr: 0xA0EC, symSize: 0x110 }
+  - { offsetInCU: 0x26BA, offset: 0x5F4F7, size: 0x8, addend: 0x0, symName: '_$sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC8TerraiOS17CustomPermissionsO_SayAFGTg5Tf4gn_n', symObjAddr: 0x6668, symBinAddr: 0xAD98, symSize: 0x124 }
+...

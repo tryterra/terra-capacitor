@@ -8,7 +8,7 @@ window.customElements.define(
     constructor() {
       super();
       Terra.echo({ value: 'Echo function test' });
-      const connection = Connections.SAMSUNG;
+      const connection = Connections.APPLE_HEALTH;
       // terra functions example
       Terra.initTerra({ devId: 'devId', referenceId: 'referenceid' })
         .then(res => {

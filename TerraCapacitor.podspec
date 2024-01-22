@@ -15,5 +15,5 @@ Pod::Spec.new do |s|
   s.dependency 'Capacitor'
   s.swift_version = '5.1'
   s.frameworks = ['HealthKit']
-  s.dependency "TerraiOS", "= 1.3.19"
+  s.dependency "TerraiOS", "= 1.6.1"
 end
