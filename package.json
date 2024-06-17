@@ -1,6 +1,6 @@
 {
   "name": "terra-capacitor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Wrap TerraiOS and TerraAndroid for capacitor projects",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -58,9 +58,6 @@
     "rollup": "^2.32.0",
     "swiftlint": "^1.0.1",
     "typescript": "~4.1.5"
-  },
-  "peerDependencies": {
-    "@capacitor/core": "^4.0.0"
   },
   "prettier": "@ionic/prettier-config",
   "swiftlint": "@ionic/swiftlint-config",
