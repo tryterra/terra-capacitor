@@ -465,7 +465,4 @@ public class TerraPlugin extends Plugin {
         call.unimplemented("Unimplemented function for Android");
     }
 
-
-
-
 }
