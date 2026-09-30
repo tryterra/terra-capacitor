@@ -127,6 +127,8 @@ export type SuccessMessage = {
 
 export type DataMessage = {
   success: boolean;
+  // Kept as `Object` to preserve the published 0.1.x type surface.
+  // eslint-disable-next-line @typescript-eslint/ban-types
   data: Object;
   error: string | null;
 };
