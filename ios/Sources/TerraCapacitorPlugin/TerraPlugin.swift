@@ -6,7 +6,24 @@ import TerraiOS
  * here: https://capacitorjs.com/docs/plugins/ios
  */
 @objc(TerraPlugin)
-public class TerraPlugin: CAPPlugin {
+public class TerraPlugin: CAPPlugin, CAPBridgedPlugin {
+    public let identifier = "TerraPlugin"
+    public let jsName = "TerraCapacitor"
+    public let pluginMethods: [CAPPluginMethod] = [
+        CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "initTerra", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "initConnection", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getUserId", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getBody", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getActivity", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getDaily", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getNutrition", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getSleep", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getMenstruation", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getAthlete", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "activateSensor", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "readGlucoseData", returnType: CAPPluginReturnPromise)
+    ]
     private let implementation = TerraCapacitor()
 
     @objc func echo(_ call: CAPPluginCall) {
