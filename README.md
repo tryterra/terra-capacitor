@@ -2,12 +2,36 @@
 
 Wrap TerraiOS and TerraAndroid for capacitor projects
 
+## Capacitor compatibility
+
+| Plugin version | Capacitor version |
+| -------------- | ----------------- |
+| 2.x            | 8.x               |
+| 0.1.x          | 5.x               |
+
 ## Install
 
 ```bash
 npm install terra-capacitor
 npx cap sync
 ```
+
+### iOS
+
+Version 2.x supports both dependency managers used by Capacitor 8 apps:
+
+- CocoaPods: resolved through `TerraCapacitor.podspec`, which pulls in the
+  `TerraiOS` pod automatically.
+- Swift Package Manager: resolved through `Package.swift`, which pulls in
+  `TerraiOS` from https://github.com/tryterra/TerraiOS.
+
+No extra setup is needed beyond `npx cap sync` for either manager. The iOS
+deployment target is 15.0, in line with Capacitor 8.
+
+### Android
+
+Requires `minSdkVersion` 28 or higher (needed by `terra-android`). Capacitor 8
+projects default to compileSdk/targetSdk 36.
 
 ## API
 
@@ -982,7 +1006,7 @@ Enables basic storage and retrieval of dates and times.
 
 #### DataMessage
 
-<code>{ success: boolean; data: <a href="#object">Object</a>; error: string | null; }</code>
+<code>{ success: boolean; // Kept as <a href="#object">`Object`</a> to preserve the published 0.1.x type surface. // eslint-disable-next-line @typescript-eslint/ban-types data: <a href="#object">Object</a>; error: string | null; }</code>
 
 
 #### PropertyKey
