@@ -1,2 +1,5 @@
 build
 dist
+example/dist
+example/ios/App/App/public
+example/android/app/src/main/assets/public

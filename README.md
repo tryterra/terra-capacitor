@@ -1084,56 +1084,56 @@ Enables basic storage and retrieval of dates and times.
 
 #### Connections
 
-| Members                 | Value                          |
-| ----------------------- | ------------------------------ |
-| **`'APPLE_HEALTH'`**    | <code>'APPLE_HEALTH'</code>    |
-| **`'FREESTYLE_LIBRE'`** | <code>'FREESTYLE_LIBRE'</code> |
-| **`'GOOGLE'`**          | <code>'GOOGLE'</code>          |
-| **`'SAMSUNG'`**         | <code>'SAMSUNG'</code>         |
+| Members               | Value                          |
+| --------------------- | ------------------------------ |
+| **`APPLE_HEALTH`**    | <code>'APPLE_HEALTH'</code>    |
+| **`FREESTYLE_LIBRE`** | <code>'FREESTYLE_LIBRE'</code> |
+| **`GOOGLE`**          | <code>'GOOGLE'</code>          |
+| **`SAMSUNG`**         | <code>'SAMSUNG'</code>         |
 
 
 #### CustomPermissions
 
-| Members                         | Value                                  |
-| ------------------------------- | -------------------------------------- |
-| **`'WORKOUT_TYPES'`**           | <code>'WORKOUT_TYPES'</code>           |
-| **`'ACTIVITY_SUMMARY'`**        | <code>'ACTIVITY_SUMMARY'</code>        |
-| **`'LOCATION'`**                | <code>'LOCATION'</code>                |
-| **`'CALORIES'`**                | <code>'CALORIES'</code>                |
-| **`'STEPS'`**                   | <code>'STEPS'</code>                   |
-| **`'HEART_RATE'`**              | <code>'HEART_RATE'</code>              |
-| **`'HEART_RATE_VARIABILITY'`**  | <code>'HEART_RATE_VARIABILITY'</code>  |
-| **`'VO2MAX'`**                  | <code>'VO2MAX'</code>                  |
-| **`'HEIGHT'`**                  | <code>'HEIGHT'</code>                  |
-| **`'ACTIVE_DURATIONS'`**        | <code>'ACTIVE_DURATIONS'</code>        |
-| **`'WEIGHT'`**                  | <code>'WEIGHT'</code>                  |
-| **`'FLIGHTS_CLIMBED'`**         | <code>'FLIGHTS_CLIMBED'</code>         |
-| **`'BMI'`**                     | <code>'BMI'</code>                     |
-| **`'BODY_FAT'`**                | <code>'BODY_FAT'</code>                |
-| **`'EXERCISE_DISTANCE'`**       | <code>'EXERCISE_DISTANCE'</code>       |
-| **`'GENDER'`**                  | <code>'GENDER'</code>                  |
-| **`'DATE_OF_BIRTH'`**           | <code>'DATE_OF_BIRTH'</code>           |
-| **`'BASAL_ENERGY_BURNED'`**     | <code>'BASAL_ENERGY_BURNED'</code>     |
-| **`'SWIMMING_SUMMARY'`**        | <code>'SWIMMING_SUMMARY'</code>        |
-| **`'RESTING_HEART_RATE'`**      | <code>'RESTING_HEART_RATE'</code>      |
-| **`'BLOOD_PRESSURE'`**          | <code>'BLOOD_PRESSURE'</code>          |
-| **`'BLOOD_GLUCOSE'`**           | <code>'BLOOD_GLUCOSE'</code>           |
-| **`'BODY_TEMPERATURE'`**        | <code>'BODY_TEMPERATURE'</code>        |
-| **`'MINDFULNESS'`**             | <code>'MINDFULNESS'</code>             |
-| **`'LEAN_BODY_MASS'`**          | <code>'LEAN_BODY_MASS'</code>          |
-| **`'OXYGEN_SATURATION'`**       | <code>'OXYGEN_SATURATION'</code>       |
-| **`'SLEEP_ANALYSIS'`**          | <code>'SLEEP_ANALYSIS'</code>          |
-| **`'RESPIRATORY_RATE'`**        | <code>'RESPIRATORY_RATE'</code>        |
-| **`'NUTRITION_SODIUM'`**        | <code>'NUTRITION_SODIUM'</code>        |
-| **`'NUTRITION_PROTEIN'`**       | <code>'NUTRITION_PROTEIN'</code>       |
-| **`'NUTRITION_CARBOHYDRATES'`** | <code>'NUTRITION_CARBOHYDRATES'</code> |
-| **`'NUTRITION_FIBRE'`**         | <code>'NUTRITION_FIBRE'</code>         |
-| **`'NUTRITION_FAT_TOTAL'`**     | <code>'NUTRITION_FAT_TOTAL'</code>     |
-| **`'NUTRITION_SUGAR'`**         | <code>'NUTRITION_SUGAR'</code>         |
-| **`'NUTRITION_VITAMIN_C'`**     | <code>'NUTRITION_VITAMIN_C'</code>     |
-| **`'NUTRITION_VITAMIN_A'`**     | <code>'NUTRITION_VITAMIN_A'</code>     |
-| **`'NUTRITION_CALORIES'`**      | <code>'NUTRITION_CALORIES'</code>      |
-| **`'NUTRITION_WATER'`**         | <code>'NUTRITION_WATER'</code>         |
-| **`'NUTRITION_CHOLESTEROL'`**   | <code>'NUTRITION_CHOLESTEROL'</code>   |
+| Members                       | Value                                  |
+| ----------------------------- | -------------------------------------- |
+| **`WORKOUT_TYPES`**           | <code>'WORKOUT_TYPES'</code>           |
+| **`ACTIVITY_SUMMARY`**        | <code>'ACTIVITY_SUMMARY'</code>        |
+| **`LOCATION`**                | <code>'LOCATION'</code>                |
+| **`CALORIES`**                | <code>'CALORIES'</code>                |
+| **`STEPS`**                   | <code>'STEPS'</code>                   |
+| **`HEART_RATE`**              | <code>'HEART_RATE'</code>              |
+| **`HEART_RATE_VARIABILITY`**  | <code>'HEART_RATE_VARIABILITY'</code>  |
+| **`VO2MAX`**                  | <code>'VO2MAX'</code>                  |
+| **`HEIGHT`**                  | <code>'HEIGHT'</code>                  |
+| **`ACTIVE_DURATIONS`**        | <code>'ACTIVE_DURATIONS'</code>        |
+| **`WEIGHT`**                  | <code>'WEIGHT'</code>                  |
+| **`FLIGHTS_CLIMBED`**         | <code>'FLIGHTS_CLIMBED'</code>         |
+| **`BMI`**                     | <code>'BMI'</code>                     |
+| **`BODY_FAT`**                | <code>'BODY_FAT'</code>                |
+| **`EXERCISE_DISTANCE`**       | <code>'EXERCISE_DISTANCE'</code>       |
+| **`GENDER`**                  | <code>'GENDER'</code>                  |
+| **`DATE_OF_BIRTH`**           | <code>'DATE_OF_BIRTH'</code>           |
+| **`BASAL_ENERGY_BURNED`**     | <code>'BASAL_ENERGY_BURNED'</code>     |
+| **`SWIMMING_SUMMARY`**        | <code>'SWIMMING_SUMMARY'</code>        |
+| **`RESTING_HEART_RATE`**      | <code>'RESTING_HEART_RATE'</code>      |
+| **`BLOOD_PRESSURE`**          | <code>'BLOOD_PRESSURE'</code>          |
+| **`BLOOD_GLUCOSE`**           | <code>'BLOOD_GLUCOSE'</code>           |
+| **`BODY_TEMPERATURE`**        | <code>'BODY_TEMPERATURE'</code>        |
+| **`MINDFULNESS`**             | <code>'MINDFULNESS'</code>             |
+| **`LEAN_BODY_MASS`**          | <code>'LEAN_BODY_MASS'</code>          |
+| **`OXYGEN_SATURATION`**       | <code>'OXYGEN_SATURATION'</code>       |
+| **`SLEEP_ANALYSIS`**          | <code>'SLEEP_ANALYSIS'</code>          |
+| **`RESPIRATORY_RATE`**        | <code>'RESPIRATORY_RATE'</code>        |
+| **`NUTRITION_SODIUM`**        | <code>'NUTRITION_SODIUM'</code>        |
+| **`NUTRITION_PROTEIN`**       | <code>'NUTRITION_PROTEIN'</code>       |
+| **`NUTRITION_CARBOHYDRATES`** | <code>'NUTRITION_CARBOHYDRATES'</code> |
+| **`NUTRITION_FIBRE`**         | <code>'NUTRITION_FIBRE'</code>         |
+| **`NUTRITION_FAT_TOTAL`**     | <code>'NUTRITION_FAT_TOTAL'</code>     |
+| **`NUTRITION_SUGAR`**         | <code>'NUTRITION_SUGAR'</code>         |
+| **`NUTRITION_VITAMIN_C`**     | <code>'NUTRITION_VITAMIN_C'</code>     |
+| **`NUTRITION_VITAMIN_A`**     | <code>'NUTRITION_VITAMIN_A'</code>     |
+| **`NUTRITION_CALORIES`**      | <code>'NUTRITION_CALORIES'</code>      |
+| **`NUTRITION_WATER`**         | <code>'NUTRITION_WATER'</code>         |
+| **`NUTRITION_CHOLESTEROL`**   | <code>'NUTRITION_CHOLESTEROL'</code>   |
 
 </docgen-api>
