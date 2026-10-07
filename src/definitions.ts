@@ -124,10 +124,10 @@ export type SuccessMessage = {
   error: string | null;
 };
 
+/* eslint-disable @typescript-eslint/ban-types */
 export type DataMessage = {
   success: boolean;
-  // Kept as `Object` to preserve the published 0.1.x type surface.
-  // eslint-disable-next-line @typescript-eslint/ban-types
   data: Object;
   error: string | null;
 };
+/* eslint-enable @typescript-eslint/ban-types */

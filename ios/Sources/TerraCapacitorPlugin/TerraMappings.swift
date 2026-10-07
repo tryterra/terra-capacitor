@@ -1,8 +1,6 @@
 import Foundation
 import TerraiOS
 
-/// Translates the string values the JavaScript layer sends into TerraiOS types, and TerraiOS errors back into
-/// the messages the JavaScript layer receives.
 enum TerraMappings {
     static func connection(_ name: String?) -> Connections? {
         switch name {
@@ -58,12 +56,10 @@ enum TerraMappings {
         "NUTRITION_CHOLESTEROL": .NUTRITION_CHOLESTEROL
     ]
 
-    /// Names with no iOS equivalent are skipped rather than failing the whole connection.
     static func customPermissions(_ names: [String]) -> Set<CustomPermissions> {
         Set(names.compactMap { customPermissionsByName[$0] })
     }
 
-    // One flat case per error, so the branch count is not real complexity.
     // swiftlint:disable:next cyclomatic_complexity
     static func message(for error: TerraError) -> String {
         switch error {

@@ -1006,7 +1006,7 @@ Enables basic storage and retrieval of dates and times.
 
 #### DataMessage
 
-<code>{ success: boolean; // Kept as <a href="#object">`Object`</a> to preserve the published 0.1.x type surface. // eslint-disable-next-line @typescript-eslint/ban-types data: <a href="#object">Object</a>; error: string | null; }</code>
+<code>{ success: boolean; data: <a href="#object">Object</a>; error: string | null; }</code>
 
 
 #### PropertyKey

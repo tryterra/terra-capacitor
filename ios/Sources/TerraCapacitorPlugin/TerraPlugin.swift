@@ -33,16 +33,13 @@ public class TerraPlugin: CAPPlugin, CAPBridgedPlugin {
         ])
     }
 
-    //  require init on main
     @objc
     static func requiresMainQueueSetup() -> Bool {
         return true
     }
 
-    // terra instance managed
     private var terra: TerraManager?
 
-    // initialize
     @objc
     func initTerra(_ call: CAPPluginCall) {
         Terra.instance(
@@ -161,7 +158,6 @@ public class TerraPlugin: CAPPlugin, CAPBridgedPlugin {
         }
     }
 
-    // Freestyle glucose init
     @objc
     func readGlucoseData(_ call: CAPPluginCall) {
         terra?.readGlucoseData { details in
@@ -178,8 +174,7 @@ public class TerraPlugin: CAPPlugin, CAPBridgedPlugin {
 
     private typealias DataCompletion<T> = (Bool, T?, TerraError?) -> Void
 
-    /// Shared argument handling for the date-ranged getters. An omitted `endDate` means now, which is also the
-    /// TerraiOS default.
+    /// TerraiOS defaults an omitted `endDate` to now.
     private func fetch<T: Encodable>(
         _ call: CAPPluginCall,
         request: @escaping (TerraManager, Connections, Date, Date, Bool, @escaping DataCompletion<T>) -> Void
