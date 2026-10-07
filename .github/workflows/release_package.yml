@@ -8,7 +8,11 @@ on:
         description: 'Release type (one of: patch, minor, major, prepatch, preminor, premajor, prerelease) or an exact version such as 2.0.0'
         required: true
 jobs:
+  verify:
+    uses: ./.github/workflows/verify.yml
+
   release:
+    needs: verify
     runs-on: ubuntu-latest
     steps:
       # Checkout project repository
@@ -24,7 +28,7 @@ jobs:
 
       # Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       # Build
       - name: Build package
@@ -65,10 +69,9 @@ jobs:
           operation: release
 
       # Commit changes
-      - name: Commit CHANGELOG.md, package.json and package-lock.json changes and create tag
+      - name: Commit CHANGELOG.md and package.json changes and create tag
         run: |
           git add "package.json"
-          git add "package-lock.json"
           git add "CHANGELOG.md"
           git commit -m "chore: release ${{ env.NEW_VERSION }}"
           git tag ${{ env.NEW_VERSION }}

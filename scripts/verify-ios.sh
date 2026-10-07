@@ -1,5 +1,4 @@
 #!/bin/sh
-# Verifies both published iOS paths: the Swift package (build and unit tests) and the CocoaPods podspec.
 set -e
 
 xcodebuild -scheme TerraCapacitor -destination generic/platform=iOS -quiet
