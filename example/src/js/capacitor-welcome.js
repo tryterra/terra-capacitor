@@ -11,7 +11,7 @@ window.customElements.define(
       const connection = Connections.APPLE_HEALTH;
       // terra functions example
       Terra.initTerra({ devId: 'devId', referenceId: 'referenceid' })
-        .then(res => {
+        .then((res) => {
           console.log('initTerra', res.success);
           Terra.initConnection({
             connection: connection,
@@ -19,43 +19,43 @@ window.customElements.define(
             schedulerOn: true,
             customPermissions: [],
             startIntent: null,
-          }).then(a => {
+          }).then((a) => {
             console.log('initConnection', a.success, a.error);
             Terra.getActivity({
               connection: connection,
               startDate: new Date(),
               toWebhook: false,
-            }).then(r => console.log('getActivity', r.data));
+            }).then((r) => console.log('getActivity', r.data));
             Terra.getBody({
               connection: connection,
               startDate: new Date(),
               toWebhook: false,
-            }).then(r => console.log('getBody', r.data));
+            }).then((r) => console.log('getBody', r.data));
             Terra.getUserId({
-              connection: connection
-            }).then(r => console.log("get user id", r.userId));
+              connection: connection,
+            }).then((r) => console.log('get user id', r.userId));
             Terra.getDaily({
               connection: connection,
               startDate: new Date(),
               toWebhook: false,
-            }).then(r => console.log('getDaily', r));
+            }).then((r) => console.log('getDaily', r));
             Terra.getNutrition({
               connection: connection,
               startDate: new Date(),
-            }).then(r => console.log('getNutrition', r));
+            }).then((r) => console.log('getNutrition', r));
             Terra.getSleep({
               connection: connection,
               startDate: new Date(),
               toWebhook: false,
-            }).then(r => console.log('getSleep', r));
+            }).then((r) => console.log('getSleep', r));
             Terra.getAthlete({
               connection: connection,
-            }).then(r => console.log('getAthlete', r));
+            }).then((r) => console.log('getAthlete', r));
           });
           // Terra.activateSensor().then(r => console.log('activateSensor', r));
           // Terra.readGlucoseData().then(r => console.log('readGlucoseData', r.data));
         })
-        .catch(e => console.log('error', e));
+        .catch((e) => console.log('error', e));
       SplashScreen.hide();
 
       const root = this.attachShadow({ mode: 'open' });
@@ -141,24 +141,22 @@ window.customElements.define(
     connectedCallback() {
       const self = this;
 
-      self.shadowRoot
-        .querySelector('#take-photo')
-        .addEventListener('click', async function (e) {
-          try {
-            const photo = await Camera.getPhoto({
-              resultType: 'uri',
-            });
+      self.shadowRoot.querySelector('#take-photo').addEventListener('click', async function (e) {
+        try {
+          const photo = await Camera.getPhoto({
+            resultType: 'uri',
+          });
 
-            const image = self.shadowRoot.querySelector('#image');
-            if (!image) {
-              return;
-            }
-
-            image.src = photo.webPath;
-          } catch (e) {
-            console.warn('User cancelled', e);
+          const image = self.shadowRoot.querySelector('#image');
+          if (!image) {
+            return;
           }
-        });
+
+          image.src = photo.webPath;
+        } catch (e) {
+          console.warn('User cancelled', e);
+        }
+      });
     }
   },
 );

@@ -1,5 +1,8 @@
 package co.tryterra.capacitor;
 
+import co.tryterra.terra.TerraManager;
+import co.tryterra.terra.enums.Connections;
+import co.tryterra.terra.enums.CustomPermissions;
 import com.getcapacitor.JSArray;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
@@ -7,20 +10,13 @@ import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
-
-import co.tryterra.terra.TerraManager;
-import co.tryterra.terra.enums.Connections;
-import co.tryterra.terra.enums.CustomPermissions;
 import kotlin.Unit;
-
+import org.json.JSONException;
 
 @CapacitorPlugin(name = "TerraCapacitor")
 public class TerraPlugin extends Plugin {
@@ -38,8 +34,8 @@ public class TerraPlugin extends Plugin {
         call.resolve(ret);
     }
 
-    private Connections parseConnection(String connection){
-        switch (connection){
+    private Connections parseConnection(String connection) {
+        switch (connection) {
             case "SAMSUNG":
                 return Connections.SAMSUNG;
             case "GOOGLE":
@@ -51,8 +47,8 @@ public class TerraPlugin extends Plugin {
         }
     }
 
-    private CustomPermissions parseCustomPermission(String customPermission){
-        switch (customPermission){
+    private CustomPermissions parseCustomPermission(String customPermission) {
+        switch (customPermission) {
             case "WORKOUT_TYPES":
                 return CustomPermissions.WORKOUT_TYPE;
             case "ACTIVITY_SUMMARY":
@@ -140,7 +136,7 @@ public class TerraPlugin extends Plugin {
     public void initTerra(PluginCall call) {
         String devId = call.getString("devId");
         JSObject res = new JSObject();
-        if (devId == null){
+        if (devId == null) {
             res.put("success", false);
             res.put("error", "Invalid devId passed");
             call.resolve(res);
@@ -148,34 +144,35 @@ public class TerraPlugin extends Plugin {
         }
 
         co.tryterra.terra.Terra.Companion.instance(
-                devId,
-                call.getString("referenceId"),
-                Objects.requireNonNull(this.getContext()),
-                (terraManager, error) ->{
-                    this.terra = terraManager;
-                    res.put("success", true);
-                    if (error != null){
-                        res.put("error", error.getMessage());
-                    }
-                    call.resolve(res);
-                    return Unit.INSTANCE;
-                });
+            devId,
+            call.getString("referenceId"),
+            Objects.requireNonNull(this.getContext()),
+            (terraManager, error) -> {
+                this.terra = terraManager;
+                res.put("success", true);
+                if (error != null) {
+                    res.put("error", error.getMessage());
+                }
+                call.resolve(res);
+                return Unit.INSTANCE;
+            }
+        );
     }
 
     @PluginMethod
-    public void initConnection(PluginCall call){
+    public void initConnection(PluginCall call) {
         JSObject res = new JSObject();
 
         String connection = call.getString("connection");
         String token = call.getString("token");
-        if (connection == null || parseConnection(connection) == null){
+        if (connection == null || parseConnection(connection) == null) {
             res.put("success", false);
             res.put("error", "Invalid connection provided");
             call.resolve(res);
             return;
         }
 
-        if (token == null){
+        if (token == null) {
             res.put("success", false);
             res.put("error", "Invalid token provided");
             call.resolve(res);
@@ -193,7 +190,7 @@ public class TerraPlugin extends Plugin {
                 }
                 cPermissions.add(parseCustomPermission((String) customPermission));
             }
-        }catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
             res.put("success", false);
             res.put("error", "Invalid customPermissions object. This must be a list");
@@ -201,19 +198,26 @@ public class TerraPlugin extends Plugin {
 
         String startIntent = call.getString("startIntent");
 
-        this.terra.initConnection(Objects.requireNonNull(parseConnection(connection)), token, Objects.requireNonNull(this.getContext()), cPermissions, schedulerOn, startIntent,
-                (success, error)-> {
-                    res.put("success", success);
-                    if (error != null){
-                        res.put("error", error.getMessage());
-                    }
-                    call.resolve(res);
-                    return Unit.INSTANCE;
-                });
+        this.terra.initConnection(
+            Objects.requireNonNull(parseConnection(connection)),
+            token,
+            Objects.requireNonNull(this.getContext()),
+            cPermissions,
+            schedulerOn,
+            startIntent,
+            (success, error) -> {
+                res.put("success", success);
+                if (error != null) {
+                    res.put("error", error.getMessage());
+                }
+                call.resolve(res);
+                return Unit.INSTANCE;
+            }
+        );
     }
 
-   @PluginMethod
-   public void getUserId(PluginCall call){
+    @PluginMethod
+    public void getUserId(PluginCall call) {
         String connection = call.getString("connection");
         JSObject res = new JSObject();
         if (connection == null || parseConnection(connection) == null) {
@@ -226,19 +230,19 @@ public class TerraPlugin extends Plugin {
         res.put("success", true);
         res.put("userId", this.terra.getUserId(Objects.requireNonNull(parseConnection(connection))));
         call.resolve(res);
-   }
+    }
 
     @PluginMethod
-    public void getAthlete(PluginCall call){
+    public void getAthlete(PluginCall call) {
         call.unimplemented("Unimplemented function for Android");
     }
 
     @PluginMethod
-    public void getBody(PluginCall call){
+    public void getBody(PluginCall call) {
         JSObject res = new JSObject();
 
         String connection = call.getString("connection");
-        if (connection == null || parseConnection(connection) == null){
+        if (connection == null || parseConnection(connection) == null) {
             res.put("success", false);
             res.put("error", "Invalid connection provided");
             call.resolve(res);
@@ -247,7 +251,7 @@ public class TerraPlugin extends Plugin {
         boolean toWebhook = Boolean.TRUE.equals(call.getBoolean("toWebhook"));
 
         Instant startDate = call.getString("startDate") == null ? null : Instant.parse(call.getString("startDate"));
-        if (startDate == null){
+        if (startDate == null) {
             res.put("success", false);
             res.put("error", "Start date required");
             call.resolve(res);
@@ -257,29 +261,30 @@ public class TerraPlugin extends Plugin {
         Instant endDate = call.getString("endDate") == null ? startDate.plus(1, ChronoUnit.DAYS) : Instant.parse(call.getString("endDate"));
 
         this.terra.getBody(
-                Objects.requireNonNull(parseConnection(connection)),
-                Date.from(startDate),
-                Date.from(endDate),
-                toWebhook,
-                (success, data, error) ->{
-                    res.put("success", success);
-                    if (data != null){
-                        res.put("data", gson.toJson(data));
-                    }
-                    if (error != null){
-                        res.put("error", error.getMessage());
-                    }
-                    call.resolve(res);
-                    return Unit.INSTANCE;
-                });
+            Objects.requireNonNull(parseConnection(connection)),
+            Date.from(startDate),
+            Date.from(endDate),
+            toWebhook,
+            (success, data, error) -> {
+                res.put("success", success);
+                if (data != null) {
+                    res.put("data", gson.toJson(data));
+                }
+                if (error != null) {
+                    res.put("error", error.getMessage());
+                }
+                call.resolve(res);
+                return Unit.INSTANCE;
+            }
+        );
     }
 
     @PluginMethod
-    public void getActivity(PluginCall call){
+    public void getActivity(PluginCall call) {
         JSObject res = new JSObject();
 
         String connection = call.getString("connection");
-        if (connection == null || parseConnection(connection) == null){
+        if (connection == null || parseConnection(connection) == null) {
             res.put("success", false);
             res.put("error", "Invalid connection provided");
             call.resolve(res);
@@ -288,7 +293,7 @@ public class TerraPlugin extends Plugin {
         boolean toWebhook = Boolean.TRUE.equals(call.getBoolean("toWebhook"));
 
         Instant startDate = call.getString("startDate") == null ? null : Instant.parse(call.getString("startDate"));
-        if (startDate == null){
+        if (startDate == null) {
             res.put("success", false);
             res.put("error", "Start date required");
             call.resolve(res);
@@ -296,32 +301,32 @@ public class TerraPlugin extends Plugin {
         }
 
         Instant endDate = call.getString("endDate") == null ? startDate.plus(1, ChronoUnit.DAYS) : Instant.parse(call.getString("endDate"));
-
 
         this.terra.getActivity(
-                Objects.requireNonNull(parseConnection(connection)),
-                Date.from(startDate),
-                Date.from(endDate),
-                toWebhook,
-                (success, data, error) ->{
-                    res.put("success", success);
-                    if (data != null){
-                        res.put("data", gson.toJson(data));
-                    }
-                    if (error != null){
-                        res.put("error", error.getMessage());
-                    }
-                    call.resolve(res);
-                    return Unit.INSTANCE;
-                });
+            Objects.requireNonNull(parseConnection(connection)),
+            Date.from(startDate),
+            Date.from(endDate),
+            toWebhook,
+            (success, data, error) -> {
+                res.put("success", success);
+                if (data != null) {
+                    res.put("data", gson.toJson(data));
+                }
+                if (error != null) {
+                    res.put("error", error.getMessage());
+                }
+                call.resolve(res);
+                return Unit.INSTANCE;
+            }
+        );
     }
 
     @PluginMethod
-    public void getDaily(PluginCall call){
+    public void getDaily(PluginCall call) {
         JSObject res = new JSObject();
 
         String connection = call.getString("connection");
-        if (connection == null || parseConnection(connection) == null){
+        if (connection == null || parseConnection(connection) == null) {
             res.put("success", false);
             res.put("error", "Invalid connection provided");
             call.resolve(res);
@@ -329,9 +334,8 @@ public class TerraPlugin extends Plugin {
         }
         boolean toWebhook = Boolean.TRUE.equals(call.getBoolean("toWebhook"));
 
-
         Instant startDate = call.getString("startDate") == null ? null : Instant.parse(call.getString("startDate"));
-        if (startDate == null){
+        if (startDate == null) {
             res.put("success", false);
             res.put("error", "Start date required");
             call.resolve(res);
@@ -339,32 +343,32 @@ public class TerraPlugin extends Plugin {
         }
 
         Instant endDate = call.getString("endDate") == null ? startDate.plus(1, ChronoUnit.DAYS) : Instant.parse(call.getString("endDate"));
-
 
         this.terra.getDaily(
-                Objects.requireNonNull(parseConnection(connection)),
-                Date.from(startDate),
-                Date.from(endDate),
-                toWebhook,
-                (success, data, error) ->{
-                    res.put("success", success);
-                    if (data != null){
-                        res.put("data", gson.toJson(data));
-                    }
-                    if (error != null){
-                        res.put("error", error.getMessage());
-                    }
-                    call.resolve(res);
-                    return Unit.INSTANCE;
-                });
+            Objects.requireNonNull(parseConnection(connection)),
+            Date.from(startDate),
+            Date.from(endDate),
+            toWebhook,
+            (success, data, error) -> {
+                res.put("success", success);
+                if (data != null) {
+                    res.put("data", gson.toJson(data));
+                }
+                if (error != null) {
+                    res.put("error", error.getMessage());
+                }
+                call.resolve(res);
+                return Unit.INSTANCE;
+            }
+        );
     }
 
     @PluginMethod
-    public void getNutrition(PluginCall call){
+    public void getNutrition(PluginCall call) {
         JSObject res = new JSObject();
 
         String connection = call.getString("connection");
-        if (connection == null || parseConnection(connection) == null){
+        if (connection == null || parseConnection(connection) == null) {
             res.put("success", false);
             res.put("error", "Invalid connection provided");
             call.resolve(res);
@@ -372,9 +376,8 @@ public class TerraPlugin extends Plugin {
         }
         boolean toWebhook = Boolean.TRUE.equals(call.getBoolean("toWebhook"));
 
-
         Instant startDate = call.getString("startDate") == null ? null : Instant.parse(call.getString("startDate"));
-        if (startDate == null){
+        if (startDate == null) {
             res.put("success", false);
             res.put("error", "Start date required");
             call.resolve(res);
@@ -382,32 +385,32 @@ public class TerraPlugin extends Plugin {
         }
 
         Instant endDate = call.getString("endDate") == null ? startDate.plus(1, ChronoUnit.DAYS) : Instant.parse(call.getString("endDate"));
-
 
         this.terra.getNutrition(
-                Objects.requireNonNull(parseConnection(connection)),
-                Date.from(startDate),
-                Date.from(endDate),
-                toWebhook,
-                (success, data, error) ->{
-                    res.put("success", success);
-                    if (data != null){
-                        res.put("data", gson.toJson(data));
-                    }
-                    if (error != null){
-                        res.put("error", error.getMessage());
-                    }
-                    call.resolve(res);
-                    return Unit.INSTANCE;
-                });
+            Objects.requireNonNull(parseConnection(connection)),
+            Date.from(startDate),
+            Date.from(endDate),
+            toWebhook,
+            (success, data, error) -> {
+                res.put("success", success);
+                if (data != null) {
+                    res.put("data", gson.toJson(data));
+                }
+                if (error != null) {
+                    res.put("error", error.getMessage());
+                }
+                call.resolve(res);
+                return Unit.INSTANCE;
+            }
+        );
     }
 
     @PluginMethod
-    public void getSleep(PluginCall call){
+    public void getSleep(PluginCall call) {
         JSObject res = new JSObject();
 
         String connection = call.getString("connection");
-        if (connection == null || parseConnection(connection) == null){
+        if (connection == null || parseConnection(connection) == null) {
             res.put("success", false);
             res.put("error", "Invalid connection provided");
             call.resolve(res);
@@ -415,9 +418,8 @@ public class TerraPlugin extends Plugin {
         }
         boolean toWebhook = Boolean.TRUE.equals(call.getBoolean("toWebhook"));
 
-
         Instant startDate = call.getString("startDate") == null ? null : Instant.parse(call.getString("startDate"));
-        if (startDate == null){
+        if (startDate == null) {
             res.put("success", false);
             res.put("error", "Start date required");
             call.resolve(res);
@@ -426,33 +428,32 @@ public class TerraPlugin extends Plugin {
 
         Instant endDate = call.getString("endDate") == null ? startDate.plus(1, ChronoUnit.DAYS) : Instant.parse(call.getString("endDate"));
 
-
         this.terra.getSleep(
-                Objects.requireNonNull(parseConnection(connection)),
-                Date.from(startDate),
-                Date.from(endDate),
-                toWebhook,
-                (success, data, error) ->{
-                    res.put("success", success);
-                    if (data != null){
-                        res.put("data", gson.toJson(data));
-                    }
-                    if (error != null){
-                        res.put("error", error.getMessage());
-                    }
-                    call.resolve(res);
-                    return Unit.INSTANCE;
-                });
+            Objects.requireNonNull(parseConnection(connection)),
+            Date.from(startDate),
+            Date.from(endDate),
+            toWebhook,
+            (success, data, error) -> {
+                res.put("success", success);
+                if (data != null) {
+                    res.put("data", gson.toJson(data));
+                }
+                if (error != null) {
+                    res.put("error", error.getMessage());
+                }
+                call.resolve(res);
+                return Unit.INSTANCE;
+            }
+        );
     }
 
     @PluginMethod
-    public void getMenstruation(PluginCall call){
+    public void getMenstruation(PluginCall call) {
         call.unimplemented("Unimplemented function for Android");
     }
 
-
     @PluginMethod
-    public void readGlucoseData(PluginCall call){
+    public void readGlucoseData(PluginCall call) {
         this.terra.readGlucoseData((details) -> {
             JSObject res = new JSObject();
             call.resolve(res.put("data", gson.toJson(details)));
@@ -461,8 +462,7 @@ public class TerraPlugin extends Plugin {
     }
 
     @PluginMethod
-    public void activateSensor(PluginCall call){
+    public void activateSensor(PluginCall call) {
         call.unimplemented("Unimplemented function for Android");
     }
-
 }

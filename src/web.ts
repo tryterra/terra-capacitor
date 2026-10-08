@@ -1,16 +1,9 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type {
-  Connections,
-  CustomPermissions,
-  TerraPlugin,
-} from './definitions';
+import type { Connections, CustomPermissions, TerraPlugin } from './definitions';
 
 export class TerraWeb extends WebPlugin implements TerraPlugin {
-  async initTerra(_options: {
-    devId: string;
-    referenceId: string;
-  }): Promise<any> {
+  async initTerra(_options: { devId: string; referenceId: string }): Promise<any> {
     return Promise.reject('Web Plugin Not implemented');
   }
   async initConnection(_options: {
@@ -25,48 +18,24 @@ export class TerraWeb extends WebPlugin implements TerraPlugin {
   async getUserId(_options: { connection: Connections }): Promise<any> {
     return Promise.reject('Web Plugin Not implemented');
   }
-  async getBody(_options: {
-    connection: Connections;
-    startDate: Date;
-    endDate: Date;
-  }): Promise<any> {
+  async getBody(_options: { connection: Connections; startDate: Date; endDate: Date }): Promise<any> {
     return Promise.reject('Web Plugin Not implemented');
   }
-  async getActivity(_options: {
-    connection: Connections;
-    startDate: Date;
-    endDate: Date;
-  }): Promise<any> {
+  async getActivity(_options: { connection: Connections; startDate: Date; endDate: Date }): Promise<any> {
     return Promise.reject('Web Plugin Not implemented');
   }
-  async getDaily(_options: {
-    connection: Connections;
-    startDate: Date;
-    endDate: Date;
-  }): Promise<any> {
+  async getDaily(_options: { connection: Connections; startDate: Date; endDate: Date }): Promise<any> {
     return Promise.reject('Web Plugin Not implemented');
   }
-  async getNutrition(_options: {
-    connection: Connections;
-    startDate: Date;
-    endDate: Date;
-  }): Promise<any> {
+  async getNutrition(_options: { connection: Connections; startDate: Date; endDate: Date }): Promise<any> {
     return Promise.reject('Web Plugin Not implemented');
   }
 
-  async getMenstruation(_options: {
-    connection: Connections;
-    startDate: Date;
-    endDate: Date;
-  }): Promise<any> {
+  async getMenstruation(_options: { connection: Connections; startDate: Date; endDate: Date }): Promise<any> {
     return Promise.reject('Web Plugin Not implemented');
   }
 
-  async getSleep(_options: {
-    connection: Connections;
-    startDate: Date;
-    endDate: Date;
-  }): Promise<any> {
+  async getSleep(_options: { connection: Connections; startDate: Date; endDate: Date }): Promise<any> {
     return Promise.reject('Web Plugin Not implemented');
   }
   async getAthlete(_options: { connection: Connections }): Promise<any> {

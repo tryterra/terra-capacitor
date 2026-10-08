@@ -5,22 +5,26 @@ on:
   workflow_dispatch:
     inputs:
       release-type:
-        description: 'Release type (one of): patch, minor, major, prepatch, preminor, premajor, prerelease'
+        description: 'Release type (one of: patch, minor, major, prepatch, preminor, premajor, prerelease) or an exact version such as 2.0.0'
         required: true
 jobs:
+  verify:
+    uses: ./.github/workflows/verify.yml
+
   release:
+    needs: verify
     runs-on: ubuntu-latest
     steps:
       # Checkout project repository
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v4
 
       # Setup Node.js environment
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           registry-url: https://registry.npmjs.org/
-          node-version: '14'
+          node-version: '22'
 
       # Install dependencies
       - name: Install dependencies
@@ -51,7 +55,7 @@ jobs:
       - name: Bump pre-release version
         if: startsWith(github.event.inputs.release-type, 'pre')
         run: |
-          echo "NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE
+          echo "NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE)" >> $GITHUB_ENV
           echo "RELEASE_TAG=beta" >> $GITHUB_ENV
         env:
           RELEASE_TYPE: ${{ github.event.inputs.release-type }}
