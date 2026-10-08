@@ -41,8 +41,6 @@ jobs:
             echo "PRERELEASE=$PRERELEASE"
           } >> "$GITHUB_ENV"
 
-      # A rerun of a partly failed release resumes when npm or the tag already holds this commit,
-      # and stops when either holds a different one.
       - name: Check release state
         run: |
           PUBLISHED_HEAD=$(npm view "terra-capacitor@$VERSION" gitHead 2>/dev/null || true)
