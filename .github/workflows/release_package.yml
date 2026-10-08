@@ -1,5 +1,3 @@
-# Publishes the version already committed in package.json. Version bumps land on main through a
-# pull request, because main is protected and this workflow cannot push to it.
 name: Release package
 on:
   workflow_dispatch:
@@ -23,6 +21,13 @@ jobs:
           registry-url: https://registry.npmjs.org/
           node-version: '22'
 
+      - name: Ensure release is from main
+        run: |
+          test "$GITHUB_REF" = "refs/heads/main" || {
+            echo "::error::Releases must be dispatched from main."
+            exit 1
+          }
+
       - name: Read version
         run: |
           VERSION=$(node -p "require('./package.json').version")
@@ -36,25 +41,46 @@ jobs:
             echo "PRERELEASE=$PRERELEASE"
           } >> "$GITHUB_ENV"
 
-      # The podspec fetches its sources from the tag named exactly after the version.
-      - name: Refuse an already released version
+      # A rerun of a partly failed release resumes when npm or the tag already holds this commit,
+      # and stops when either holds a different one.
+      - name: Check release state
         run: |
-          if git ls-remote --exit-code --tags origin "refs/tags/$VERSION" > /dev/null; then
-            echo "::error::Tag $VERSION already exists. Bump the version in package.json through a pull request."
+          PUBLISHED_HEAD=$(npm view "terra-capacitor@$VERSION" gitHead 2>/dev/null || true)
+          if [ -z "$PUBLISHED_HEAD" ] && npm view "terra-capacitor@$VERSION" version > /dev/null 2>&1; then
+            echo "::error::terra-capacitor@$VERSION is on npm without a recorded commit. Bump the version in package.json through a pull request."
             exit 1
           fi
-          if npm view "terra-capacitor@$VERSION" version > /dev/null 2>&1; then
-            echo "::error::terra-capacitor@$VERSION is already on npm. Bump the version in package.json through a pull request."
+          if [ -n "$PUBLISHED_HEAD" ] && [ "$PUBLISHED_HEAD" != "$GITHUB_SHA" ]; then
+            echo "::error::terra-capacitor@$VERSION is on npm from $PUBLISHED_HEAD, not $GITHUB_SHA. Bump the version in package.json through a pull request."
             exit 1
           fi
+          if gh release view "$VERSION" > /dev/null 2>&1; then
+            echo "::error::Release $VERSION already exists. Bump the version in package.json through a pull request."
+            exit 1
+          fi
+          TAG_HEAD=$(git ls-remote --tags origin "refs/tags/$VERSION" | cut -f1)
+          if [ -n "$TAG_HEAD" ] && [ "$TAG_HEAD" != "$GITHUB_SHA" ]; then
+            echo "::error::Tag $VERSION points at $TAG_HEAD, not $GITHUB_SHA. Bump the version in package.json through a pull request."
+            exit 1
+          fi
+          if [ -n "$PUBLISHED_HEAD" ]; then
+            echo "PUBLISHED=true" >> "$GITHUB_ENV"
+          else
+            echo "PUBLISHED=false" >> "$GITHUB_ENV"
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Install dependencies
+        if: env.PUBLISHED == 'false'
         run: npm install
 
       - name: Build package
+        if: env.PUBLISHED == 'false'
         run: npm run build
 
       - name: Publish to npm
+        if: env.PUBLISHED == 'false'
         run: npm publish --access public --tag "$NPM_TAG"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPMJS_ACCESS_TOKEN }}
